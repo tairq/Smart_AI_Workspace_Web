@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView, type Variants } from "framer-motion";
+import { motion, useInView, type Variants, type Transition } from "framer-motion";
 import Link from "next/link";
 import { ExternalLink, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
@@ -38,7 +38,7 @@ const colVariants: Variants = {
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" as const },
+    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" } as Transition,
   }),
 };
 
