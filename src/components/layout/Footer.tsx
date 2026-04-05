@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import { motion, useInView, type Variants } from "framer-motion";
 import Link from "next/link";
 import { ExternalLink, Mail } from "lucide-react";
 import { siteConfig } from "@/config/site";
@@ -33,12 +33,12 @@ const socials = [
   { icon: Mail, href: `mailto:${siteConfig.links.email}`, label: "Email" },
 ];
 
-const colVariants = {
+const colVariants: Variants = {
   hidden: { opacity: 0, y: 24 },
   show: (i: number) => ({
     opacity: 1,
     y: 0,
-    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" },
+    transition: { duration: 0.5, delay: i * 0.1, ease: "easeOut" as const },
   }),
 };
 
