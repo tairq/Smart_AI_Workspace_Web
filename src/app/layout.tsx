@@ -36,6 +36,11 @@ export const metadata: Metadata = {
     title: siteConfig.name,
     description: siteConfig.description,
   },
+  icons: {
+    icon: "/logo-new.png",
+    shortcut: "/logo-new.png",
+    apple: "/logo-new.png",
+  },
 };
 
 export default function RootLayout({
