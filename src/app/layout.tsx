@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Script from "next/script";
 import { Josefin_Sans } from "next/font/google";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
@@ -56,6 +57,25 @@ export default function RootLayout({
       lang="en"
       className={`${josefinSans.variable} ${josefinSansBody.variable} dark`}
     >
+      <head>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-S130YXZFHY"
+          strategy="afterInteractive"
+        />
+        <Script
+          id="google-analytics"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-S130YXZFHY');
+            `,
+          }}
+        />
+      </head>
       <body className="min-h-screen bg-background text-foreground font-sans antialiased grain">
         {children}
       </body>
