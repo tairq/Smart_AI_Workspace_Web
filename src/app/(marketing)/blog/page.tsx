@@ -1,7 +1,86 @@
+import type { Metadata } from "next";
+import Link from "next/link";
+import { ArrowUpRight, Calendar } from "lucide-react";
+import { getAllPosts } from "@/lib/data/blog";
+import { Container } from "@/components/shared/Container";
+import { SectionHeading } from "@/components/shared/SectionHeading";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+
+export const metadata: Metadata = {
+  title: "Blog",
+  description:
+    "Insights on AI automation, workflow optimization, and business transformation from the Smart AI Workspace team.",
+};
+
 export default function BlogPage() {
+  const posts = getAllPosts();
+
   return (
-    <main>
-      <h1>Blog</h1>
-    </main>
+    <>
+      <section className="gradient-mesh py-24 md:py-32">
+        <Container>
+          <SectionHeading
+            eyebrow="Blog"
+            title="Insights & Updates"
+            subtitle="Practical guides, case studies, and the latest thinking on AI-powered business automation."
+          />
+        </Container>
+      </section>
+
+      <section className="py-20 md:py-28">
+        <Container>
+          {posts.length === 0 ? (
+            <p className="text-center text-muted">
+              No posts yet — check back soon!
+            </p>
+          ) : (
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+              {posts.map((post) => (
+                <Link
+                  key={post.slug}
+                  href={`/blog/${post.slug}`}
+                  className="group block"
+                >
+                  <Card className="h-full">
+                    <div className="flex items-start justify-between">
+                      <div>
+                        <h3 className="font-display text-lg font-semibold text-off-white">
+                          {post.title}
+                        </h3>
+                        <div className="mt-2 flex flex-wrap gap-2">
+                          {post.tags.slice(0, 2).map((tag) => (
+                            <Badge key={tag}>{tag}</Badge>
+                          ))}
+                        </div>
+                      </div>
+                      <ArrowUpRight
+                        size={18}
+                        className="text-muted opacity-0 transition-opacity group-hover:opacity-100"
+                      />
+                    </div>
+                    <p className="mt-3 text-sm leading-relaxed text-muted line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    <div className="mt-4 flex items-center gap-1.5 text-xs text-muted">
+                      <Calendar size={12} />
+                      <time dateTime={post.date}>
+                        {new Date(post.date).toLocaleDateString("en-US", {
+                          month: "short",
+                          day: "numeric",
+                          year: "numeric",
+                        })}
+                      </time>
+                      <span>·</span>
+                      <span>{post.readingTime} min read</span>
+                    </div>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+          )}
+        </Container>
+      </section>
+    </>
   );
 }

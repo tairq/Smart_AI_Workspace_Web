@@ -3,6 +3,7 @@ import { siteConfig } from "@/config/site";
 import { industries } from "@/lib/data/industries";
 import { integrations } from "@/lib/data/integrations";
 import { glossaryTerms } from "@/lib/data/glossary";
+import { getAllPosts } from "@/lib/data/blog";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticPages = [
@@ -13,6 +14,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/solutions",
     "/integrations",
     "/glossary",
+    "/blog",
   ].map((path) => ({
     url: `${siteConfig.url}${path}`,
     lastModified: new Date(),
@@ -41,5 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.6,
   }));
 
-  return [...staticPages, ...solutionPages, ...integrationPages, ...glossaryPages];
+  const blogPages = getAllPosts().map((p) => ({
+    url: `${siteConfig.url}/blog/${p.slug}`,
+    lastModified: new Date(p.date),
+    changeFrequency: "weekly" as const,
+    priority: 0.7,
+  }));
+
+  return [...staticPages, ...solutionPages, ...integrationPages, ...glossaryPages, ...blogPages];
 }

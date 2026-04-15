@@ -44,7 +44,7 @@ export async function POST(request: Request) {
     }
 
     const body = await request.json();
-    const { name, company, email, service, message } = body;
+    const { name, company, email, service, message, industry } = body;
 
     // Presence checks
     if (!name || !company || !email || !service || !message) {
@@ -94,6 +94,7 @@ export async function POST(request: Request) {
           company: company.trim(),
           email: email.trim().toLowerCase(),
           service,
+          industry: typeof industry === "string" ? industry.trim() : "",
           message: message.trim(),
         }),
       });

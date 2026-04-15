@@ -1,12 +1,13 @@
 "use client";
 
-import { useState, type FormEvent } from "react";
-import { Mail, ExternalLink, Send, Calendar, Loader2, CheckCircle2 } from "lucide-react";
+import { useState, useEffect, type FormEvent } from "react";
+import { Mail, ExternalLink, Send, Calendar, Loader2, CheckCircle2, X } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Button } from "@/components/ui/Button";
 import { Card } from "@/components/ui/Card";
 import { cn } from "@/lib/utils";
+import { industries } from "@/lib/data/industries";
 
 const serviceOptions = [
   "AI Workflow Automation",
@@ -14,13 +15,37 @@ const serviceOptions = [
   "Data Pipeline & Reporting",
   "Custom AI Agent Development",
   "Other",
+
 ];
 
+const industryOptions = industries.map((i) => i.name);
+
 type FormStatus = "idle" | "submitting" | "success" | "error";
+
 
 export default function ContactPage() {
   const [status, setStatus] = useState<FormStatus>("idle");
   const [errors, setErrors] = useState<Record<string, string>>({});
+  const [showCalendly, setShowCalendly] = useState(false);
+
+  useEffect(() => {
+    if (showCalendly) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => { document.body.style.overflow = ""; };
+  }, [showCalendly]);
+
+  useEffect(() => {
+    function handleCalendlyEvent(e: MessageEvent) {
+      if (e.data?.event === "calendly.event_scheduled") {
+        setShowCalendly(false);
+      }
+    }
+    window.addEventListener("message", handleCalendlyEvent);
+    return () => window.removeEventListener("message", handleCalendlyEvent);
+  }, []);
 
   function validate(form: FormData): Record<string, string> {
     const errs: Record<string, string> = {};
@@ -111,6 +136,22 @@ export default function ContactPage() {
                       {errors.service && <p className="mt-1 text-xs text-red-400">{errors.service}</p>}
                     </div>
                     <div>
+                      <label className="mb-1.5 block text-sm font-medium text-off-white">
+                        Your Industry
+                      </label>
+                      <select
+                        name="industry"
+                        className="w-full rounded-xl border border-white/10 bg-navy px-4 py-2.5 text-sm text-off-white outline-none transition-colors focus:border-accent-cyan/50"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>Select your industry</option>
+                        {industryOptions.map((opt) => (
+                          <option key={opt} value={opt}>{opt}</option>
+                        ))}
+                        <option value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div>
                       <label className="mb-1.5 block text-sm font-medium text-off-white">Message</label>
                       <textarea
                         name="message"
@@ -174,9 +215,15 @@ export default function ContactPage() {
                     <p className="mt-1 text-sm text-muted">
                       Prefer to talk live? Book a 30-minute discovery call.
                     </p>
-                    <div className="mt-4 rounded-xl border border-dashed border-white/10 p-6 text-center">
-                      <p className="text-xs text-muted">Calendly embed placeholder</p>
-                    </div>
+                    <Button
+                      onClick={() => setShowCalendly(true)}
+                      variant="primary"
+                      size="md"
+                      className="mt-4 w-full"
+                    >
+                      <Calendar size={16} />
+                      Book a 30-Min Call
+                    </Button>
                   </div>
                 </div>
               </Card>
@@ -184,6 +231,63 @@ export default function ContactPage() {
           </div>
         </Container>
       </section>
+
+      {/* Always mounted — CSS controls visibility so iframe loads on page open */}
+      <div
+        aria-hidden={!showCalendly}
+        style={{
+          position: "fixed", inset: 0, zIndex: 50,
+          display: "flex", alignItems: "center", justifyContent: "center",
+          padding: "1rem",
+          opacity: showCalendly ? 1 : 0,
+          pointerEvents: showCalendly ? "auto" : "none",
+          transition: "opacity 0.2s ease",
+        }}
+        onClick={() => setShowCalendly(false)}
+      >
+        {/* Backdrop */}
+        <div className="absolute inset-0 bg-navy/80 backdrop-blur-md" />
+
+        {/* Modal */}
+        <div
+          className="relative z-10 w-full max-w-xl"
+          onClick={(e) => e.stopPropagation()}
+        >
+          {/* Glow ring */}
+          <div className="absolute -inset-px rounded-3xl bg-gradient-to-br from-accent-cyan/30 via-electric-blue/20 to-transparent pointer-events-none" />
+
+          <div className="relative rounded-3xl overflow-hidden bg-navy-light shadow-[0_32px_80px_rgba(0,0,0,0.6)]">
+
+            {/* Top bar */}
+            <div className="relative flex items-center justify-between px-6 py-5 bg-gradient-to-r from-electric-blue/10 to-accent-cyan/5 border-b border-white/8">
+              <div>
+                <p className="text-[10px] font-semibold uppercase tracking-widest text-accent-cyan">Smart AI Workspace</p>
+                <h3 className="font-display text-base font-bold text-off-white mt-0.5">Book a 30-Min Discovery Call</h3>
+              </div>
+              <button
+                onClick={() => setShowCalendly(false)}
+                className="flex items-center justify-center w-8 h-8 rounded-full bg-white/5 hover:bg-white/10 text-muted hover:text-off-white transition-all"
+                aria-label="Close"
+              >
+                <X size={16} />
+              </button>
+            </div>
+
+            {/* iframe — always loaded, never unmounts */}
+            <div className="relative">
+              <iframe
+                src="https://calendly.com/smart-ai-workspace/30min?hide_gdpr_banner=1&background_color=0F1B2E&text_color=F1F5F9&primary_color=0066FF"
+                width="100%"
+                height="600"
+                frameBorder={0}
+                title="Book a 30-minute discovery call"
+              />
+              {/* Cover Calendly badge */}
+              <div className="absolute top-0 right-0 w-32 h-16 bg-navy-light" />
+            </div>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
