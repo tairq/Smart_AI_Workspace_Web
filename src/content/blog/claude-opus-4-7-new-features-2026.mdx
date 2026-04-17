@@ -1,0 +1,142 @@
+---
+title: "Claude Opus 4.7 Is Here: Everything You Need to Know"
+date: "2026-04-17"
+excerpt: "Anthropic just dropped Claude Opus 4.7 with record-breaking coding benchmarks, task budgets for agentic loops, high-res image support, and a 1M context window at no extra cost. Here's what it means for your AI automation stack."
+author: "Tariq Osmani"
+tags: ["AI Tools", "Claude", "Automation", "LLMs"]
+coverImage: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?w=1200&q=80&auto=format&fit=crop"
+---
+
+Anthropic dropped Claude Opus 4.7 on April 16, 2026 — and it's the most significant single-model upgrade since the Opus 4 line launched. Across every benchmark that matters for real-world agentic work, Opus 4.7 extends the lead rather than playing catch-up. If you're running AI-powered workflows, building automation pipelines, or using Claude Code in your development process, here's a clear-eyed breakdown of what changed and what it means for you.
+
+---
+
+## Benchmark Improvements: The Numbers Speak
+
+Opus 4.7 posts substantial gains on every major coding and reasoning benchmark:
+
+| Benchmark | Opus 4.6 | Opus 4.7 | Change |
+|---|---|---|---|
+| SWE-bench Verified | 80.8% | **87.6%** | +6.8 pts |
+| SWE-bench Pro | 53.4% | **64.3%** | +10.9 pts |
+| CursorBench | 58% | **70%** | +12 pts |
+
+SWE-bench Pro is particularly telling — it uses harder, more realistic software engineering tasks than the standard SWE-bench. A jump from 53% to 64% on that suite suggests the model is better at handling ambiguous requirements and multi-file changes, not just toy examples.
+
+![A data dashboard showing upward-trending performance metrics](https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1200&q=80&auto=format&fit=crop)
+
+---
+
+## Task Budgets: Controlled Agentic Loops
+
+One of the most practically useful additions is **task budgets**. When you run an agentic loop — Claude thinking, calling tools, processing results, and writing output — it's historically been difficult to predict token consumption or ensure the model finishes gracefully within a cost envelope.
+
+Task budgets solve this. You set a hard token ceiling on the entire agentic loop. The model sees a running countdown and uses it to prioritize work, completing what it can and wrapping up cleanly before the budget is exhausted — rather than cutting off mid-task.
+
+To enable it, pass the `task-budgets-2026-03-13` beta header in your API request along with the `output_config.task_budget` parameter.
+
+```json
+{
+  "model": "claude-opus-4-7-20260416",
+  "output_config": {
+    "task_budget": 50000
+  }
+}
+```
+
+For business automation workflows where predictable API costs matter, this is a meaningful unlock. You can now set a per-run budget ceiling and trust the model to finish coherently within it.
+
+---
+
+## New xhigh Effort Level
+
+Opus 4.7 introduces a new **`xhigh` effort setting** that sits between the existing `high` and `max` options. This gives you finer control over the depth-vs-latency tradeoff on hard problems.
+
+- **`high`** — fast, capable, good for most tasks
+- **`xhigh`** — deeper reasoning, moderate latency increase *(new)*
+- **`max`** — maximum thinking depth, highest token usage
+
+Claude Code now defaults to `xhigh` for all subscriber plans, which explains the jump in CursorBench scores — the new effort level hits around 71% on coding tasks at 100k tokens, already ahead of Opus 4.6's max setting at 200k tokens.
+
+For automation workflows, `xhigh` is the sweet spot: you get significantly better multi-step reasoning without burning the token budget that `max` requires.
+
+---
+
+## High-Resolution Image Support
+
+Opus 4.7 is the **first Claude model with high-resolution image input** — up to **2576px / 3.75MP** per image.
+
+![An AI system analyzing a high-resolution visual document](https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=1200&q=80&auto=format&fit=crop)
+
+This matters for any workflow that involves document processing, screenshot analysis, diagram interpretation, or visual QA. Previous Claude models were capped at lower resolutions, which made reading dense PDFs, engineering schematics, or detailed UI screenshots unreliable. That limitation is now gone.
+
+Practical use cases this unlocks:
+
+- **Invoice and contract processing** — read fine-print clauses and table data accurately
+- **Dashboard monitoring** — analyze full-resolution chart screenshots for reporting automation
+- **Design review workflows** — pass hi-res Figma or Sketch exports directly to the model
+- **Document extraction** — pull structured data from scanned forms with better fidelity
+
+---
+
+## 1M Context Window — No Surcharge
+
+Opus 4.7 maintains the **1 million token context window** introduced in Opus 4.6, but crucially it's now available **at standard API pricing with no long-context premium**.
+
+Previously, long-context requests were priced at a premium tier. Removing that surcharge makes it economically viable to pass entire codebases, full document histories, or large data exports into a single prompt — something that was theoretically possible before but cost-prohibitive at scale.
+
+For workflow automation, this means:
+
+- Feed an entire Notion workspace or SharePoint folder into a single summarization run
+- Pass complete CRM conversation histories to a customer intelligence workflow
+- Run full codebase audits without chunking and stitching results
+
+---
+
+## New Tokenizer: Migration Note
+
+Opus 4.7 ships with a **new tokenizer**, which brings improved performance on a wide range of tasks — particularly for code, structured data, and non-English text. However, this comes with an important caveat for API users: **prompts that were token-counted against Opus 4.6 will use 1x–1.35x more tokens with Opus 4.7**.
+
+If you're migrating production workflows, run `/v1/messages/count_tokens` against your actual production prompts before switching models. A workflow that was comfortably inside your context window on 4.6 may need to be trimmed on 4.7.
+
+The pricing remains the same as Opus 4.6, so the token increase is a context management concern rather than a cost concern — but it's worth auditing before you flip the switch.
+
+---
+
+## Availability
+
+Claude Opus 4.7 is available today across:
+
+- **Anthropic API** — model ID `claude-opus-4-7-20260416`
+- **Claude.ai** (all plans)
+- **Amazon Bedrock**
+- **Microsoft Azure AI**
+- **Google Cloud Vertex AI**
+
+Pricing is identical to Claude Opus 4.6.
+
+---
+
+## What This Means for AI Automation Workflows
+
+At Smart AI Workspace, we use Claude as the reasoning backbone for a range of client automation workflows — from document intelligence pipelines to multi-step agentic coding agents. Here's how we're thinking about Opus 4.7 in practice:
+
+**Task budgets** are immediately useful for any workflow where we need predictable cost-per-run SLAs. We can now commit to a token ceiling per automation job and trust the model to complete gracefully within it.
+
+**xhigh effort** hits the sweet spot we've been waiting for. For complex multi-step workflows — think: research → synthesis → structured output — it gives us substantially better reasoning depth without the latency and cost of running at `max`.
+
+**High-res image support** opens up an entire category of document and visual workflows that were previously too fragile at lower resolutions. Invoice processing, compliance document review, and dashboard reporting automation are now meaningfully more reliable.
+
+**The 1M context window at standard pricing** changes the economics of long-context workflows. We can now include full business context — customer history, past projects, full documentation — in a single prompt without the cost math breaking.
+
+---
+
+## Ready to Put Claude Opus 4.7 to Work?
+
+If you're wondering how to integrate these new capabilities into your business operations, we can help. Whether you need to build a new automation workflow from scratch or upgrade an existing pipeline to take advantage of Opus 4.7's improvements, we'll map out exactly what's possible for your use case.
+
+[Talk to us about your automation needs →](/contact)
+
+---
+
+*Sources: [CNBC](https://www.cnbc.com/2026/04/16/anthropic-claude-opus-4-7-model-mythos.html) · [Build Fast With AI](https://www.buildfastwithai.com/blogs/claude-opus-4-7-review-benchmarks-2026) · [The AI Corner](https://www.the-ai-corner.com/p/claude-opus-4-7-guide-benchmarks-2026) · [Vellum AI](https://www.vellum.ai/blog/claude-opus-4-7-benchmarks-explained) · [AWS](https://aws.amazon.com/about-aws/whats-new/2026/04/claude-opus-4.7-amazon-bedrock/)*
