@@ -7,43 +7,10 @@ export type Industry = {
   useCases: { title: string; description: string }[];
   stats: { value: string; label: string }[];
   relatedServices: string[];
+  image?: string;
 };
 
 export const industries: Industry[] = [
-  {
-    slug: "healthcare",
-    name: "Healthcare",
-    headline: "AI Automation for Healthcare Organizations",
-    description:
-      "Reduce administrative burden, streamline patient intake, and automate compliance workflows — so your team can focus on patient care, not paperwork.",
-    painPoints: [
-      "Manual patient data entry across multiple systems",
-      "Compliance documentation and audit trails",
-      "Appointment scheduling and follow-up coordination",
-      "Insurance claim processing bottlenecks",
-      "Fragmented communication between departments",
-    ],
-    useCases: [
-      {
-        title: "Patient Intake Automation",
-        description: "Auto-populate EHR systems from intake forms, verify insurance eligibility in real-time, and route patients to the right department.",
-      },
-      {
-        title: "Compliance & Audit Workflows",
-        description: "Automated HIPAA compliance checks, document retention policies, and audit trail generation across all patient touchpoints.",
-      },
-      {
-        title: "Claims Processing Pipeline",
-        description: "AI-powered claim validation, automatic coding suggestions, and real-time status tracking to reduce denial rates by up to 40%.",
-      },
-    ],
-    stats: [
-      { value: "40%", label: "Reduction in claim denials" },
-      { value: "8hrs", label: "Saved per admin per week" },
-      { value: "99.2%", label: "Compliance accuracy" },
-    ],
-    relatedServices: ["AI Workflow Automation", "Data Pipeline & Reporting"],
-  },
   {
     slug: "real-estate",
     name: "Real Estate",
@@ -77,40 +44,7 @@ export const industries: Industry[] = [
       { value: "15hrs", label: "Saved per transaction" },
     ],
     relatedServices: ["CRM & Sales Automation", "AI Workflow Automation"],
-  },
-  {
-    slug: "finance",
-    name: "Finance & Banking",
-    headline: "AI Automation for Financial Services",
-    description:
-      "Automate risk assessment, regulatory reporting, and client onboarding workflows while maintaining strict compliance standards.",
-    painPoints: [
-      "Manual KYC/AML verification processes",
-      "Regulatory reporting that takes weeks to compile",
-      "Siloed data across trading, risk, and operations",
-      "Slow client onboarding with excessive paperwork",
-      "Fraud detection relying on rule-based systems",
-    ],
-    useCases: [
-      {
-        title: "KYC/AML Automation",
-        description: "AI-powered identity verification, document extraction, and risk scoring that reduces onboarding from days to minutes.",
-      },
-      {
-        title: "Regulatory Reporting",
-        description: "Automated data aggregation, validation, and report generation for SEC, FINRA, and internal compliance requirements.",
-      },
-      {
-        title: "Fraud Detection Pipeline",
-        description: "Real-time transaction monitoring with ML-powered anomaly detection that adapts to emerging fraud patterns.",
-      },
-    ],
-    stats: [
-      { value: "90%", label: "Faster KYC processing" },
-      { value: "60%", label: "Reduction in false positives" },
-      { value: "$2M+", label: "Annual compliance cost savings" },
-    ],
-    relatedServices: ["Data Pipeline & Reporting", "Custom AI Agents"],
+    image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&q=80&auto=format&fit=crop",
   },
   {
     slug: "e-commerce",
@@ -145,40 +79,7 @@ export const industries: Industry[] = [
       { value: "99.9%", label: "Inventory accuracy" },
     ],
     relatedServices: ["Custom AI Agents", "CRM & Sales Automation"],
-  },
-  {
-    slug: "legal",
-    name: "Legal",
-    headline: "AI Automation for Law Firms",
-    description:
-      "Automate document review, client intake, billing, and case management workflows so attorneys can focus on practicing law.",
-    painPoints: [
-      "Hours spent on document review and contract analysis",
-      "Manual client intake and conflict checking",
-      "Time tracking and billing inefficiencies",
-      "Deadline management across hundreds of cases",
-      "Knowledge management across the firm",
-    ],
-    useCases: [
-      {
-        title: "Contract Review Automation",
-        description: "AI-powered clause extraction, risk flagging, and comparison against standard templates — reducing review time by 80%.",
-      },
-      {
-        title: "Client Intake Pipeline",
-        description: "Automated conflict checks, engagement letter generation, and matter creation across your practice management system.",
-      },
-      {
-        title: "Billing Automation",
-        description: "Automatic time capture from emails and documents, invoice generation, and payment follow-up sequences.",
-      },
-    ],
-    stats: [
-      { value: "80%", label: "Faster contract review" },
-      { value: "12hrs", label: "Saved per attorney per week" },
-      { value: "30%", label: "Increase in billable hours captured" },
-    ],
-    relatedServices: ["Custom AI Agents", "AI Workflow Automation"],
+    image: "https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=800&q=80&auto=format&fit=crop",
   },
   {
     slug: "manufacturing",
@@ -213,6 +114,7 @@ export const industries: Industry[] = [
       { value: "15%", label: "Improvement in on-time delivery" },
     ],
     relatedServices: ["Data Pipeline & Reporting", "AI Workflow Automation"],
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80&auto=format&fit=crop",
   },
   {
     slug: "marketing-agencies",
@@ -247,6 +149,7 @@ export const industries: Industry[] = [
       { value: "2x", label: "More clients per account manager" },
     ],
     relatedServices: ["Data Pipeline & Reporting", "CRM & Sales Automation"],
+    image: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800&q=80&auto=format&fit=crop",
   },
   {
     slug: "logistics",
@@ -281,40 +184,7 @@ export const industries: Industry[] = [
       { value: "20%", label: "Lower operational costs" },
     ],
     relatedServices: ["AI Workflow Automation", "Custom AI Agents"],
-  },
-  {
-    slug: "insurance",
-    name: "Insurance",
-    headline: "AI Automation for Insurance Companies",
-    description:
-      "Automate underwriting, claims processing, and policyholder communication to reduce cycle times and improve customer satisfaction.",
-    painPoints: [
-      "Manual underwriting taking days per application",
-      "Claims processing bottlenecks causing customer frustration",
-      "Policy renewal communication is inconsistent",
-      "Fraud detection relies on outdated rules",
-      "Agent productivity limited by administrative tasks",
-    ],
-    useCases: [
-      {
-        title: "Automated Underwriting",
-        description: "AI-assisted risk assessment that pulls data from multiple sources, scores applications, and routes decisions in minutes.",
-      },
-      {
-        title: "Claims Processing Pipeline",
-        description: "End-to-end claims automation from first notice of loss through settlement, with AI-powered damage assessment.",
-      },
-      {
-        title: "Policyholder Communication",
-        description: "Automated renewal reminders, policy change confirmations, and personalized cross-sell recommendations.",
-      },
-    ],
-    stats: [
-      { value: "75%", label: "Faster claims resolution" },
-      { value: "50%", label: "Reduction in underwriting time" },
-      { value: "35%", label: "Increase in renewal rates" },
-    ],
-    relatedServices: ["Custom AI Agents", "Data Pipeline & Reporting"],
+    image: "https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80&auto=format&fit=crop",
   },
   {
     slug: "saas",
@@ -349,5 +219,6 @@ export const industries: Industry[] = [
       { value: "60%", label: "Support tickets auto-resolved" },
     ],
     relatedServices: ["Custom AI Agents", "CRM & Sales Automation"],
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80&auto=format&fit=crop",
   },
 ];

@@ -4,7 +4,7 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Workflow, Users, BarChart3, Bot, ArrowUpRight } from "lucide-react";
 import Link from "next/link";
-import { Card } from "@/components/ui/Card";
+import Image from "next/image";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
@@ -15,6 +15,7 @@ const services = [
     description:
       "Automate repetitive business processes with intelligent workflows that learn, adapt, and execute flawlessly.",
     href: "/services#workflow",
+    image: "/AI-Workflow-Automation.jpg",
   },
   {
     icon: Users,
@@ -22,6 +23,7 @@ const services = [
     description:
       "Supercharge your sales pipeline with AI-driven lead scoring, follow-ups, and CRM enrichment.",
     href: "/services#crm",
+    image: "/CRM-Sales-Automation.jpg",
   },
   {
     icon: BarChart3,
@@ -29,6 +31,7 @@ const services = [
     description:
       "Connect your data sources, automate ETL pipelines, and generate real-time dashboards without code.",
     href: "/services#data",
+    image: "/Data-Pipeline-Reporting.jpg",
   },
   {
     icon: Bot,
@@ -36,6 +39,7 @@ const services = [
     description:
       "Purpose-built AI agents that handle customer support, document processing, and complex decision-making.",
     href: "/services#agents",
+    image: "/Custom-AI-Agent-Development.jpg",
   },
 ];
 
@@ -60,20 +64,32 @@ export function ServicesOverview() {
               transition={{ duration: 0.5, delay: i * 0.1 }}
             >
               <Link href={service.href} className="group block h-full">
-                <Card className="h-full">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-electric-blue/10 text-electric-blue transition-colors group-hover:bg-electric-blue/20">
-                    <service.icon size={24} />
+                <div className="glass h-full overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_0_24px_0_rgba(0,212,255,0.12)]">
+                  <div className="relative h-44 w-full overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                      sizes="(max-width: 640px) 100vw, 50vw"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
+                    <div className="absolute bottom-4 left-4 flex h-10 w-10 items-center justify-center rounded-xl bg-electric-blue/20 text-electric-blue backdrop-blur-sm border border-electric-blue/30">
+                      <service.icon size={20} />
+                    </div>
                   </div>
-                  <h3 className="font-display text-lg font-semibold text-off-white">
-                    {service.title}
-                  </h3>
-                  <p className="mt-2 text-sm leading-relaxed text-muted">
-                    {service.description}
-                  </p>
-                  <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent-cyan opacity-0 transition-opacity group-hover:opacity-100">
-                    Learn more <ArrowUpRight size={14} />
-                  </span>
-                </Card>
+                  <div className="p-6">
+                    <h3 className="font-display text-lg font-semibold text-off-white">
+                      {service.title}
+                    </h3>
+                    <p className="mt-2 text-sm leading-relaxed text-muted">
+                      {service.description}
+                    </p>
+                    <span className="mt-4 inline-flex items-center gap-1 text-sm font-medium text-accent-cyan opacity-0 transition-opacity group-hover:opacity-100">
+                      Learn more <ArrowUpRight size={14} />
+                    </span>
+                  </div>
+                </div>
               </Link>
             </motion.div>
           ))}

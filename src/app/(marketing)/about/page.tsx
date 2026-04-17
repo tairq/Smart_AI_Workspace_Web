@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import { Lightbulb, Shield, Target, Handshake } from "lucide-react";
+import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/ui/Card";
@@ -33,14 +35,13 @@ const values = [
   },
 ];
 
-const team = [
-  { name: "Alex Morgan", role: "CEO & Founder" },
-  { name: "Priya Sharma", role: "Head of AI Engineering" },
-  { name: "David Kim", role: "VP of Operations" },
-  { name: "Lisa Chen", role: "Lead Automation Architect" },
-  { name: "James Rivera", role: "Head of Client Success" },
-  { name: "Aisha Patel", role: "Senior Solutions Engineer" },
-];
+const founder = {
+  name: "Tariq Osmani",
+  role: "Founder & CEO",
+  email: "tosmani@smartaiworkspace.tech",
+  bio: "Builder, automation architect, and AI enthusiast. Tariq founded Smart AI Workspace to help businesses escape manual work and operate at the speed of AI. He personally leads every client engagement — from initial workflow audit to production deployment.",
+  photo: "/team/tariq.jpg",
+};
 
 const partners = [
   "OpenAI", "Anthropic", "n8n", "Make", "Zapier",
@@ -56,7 +57,7 @@ export default function AboutPage() {
           <SectionHeading
             eyebrow="About Us"
             title="Building the Future of Business Automation"
-            subtitle="We're a team of AI engineers, automation architects, and business strategists on a mission to make intelligent automation accessible to every B2B company."
+            subtitle="Smart AI Workspace is a founder-led studio on a mission to make intelligent automation accessible to every B2B company — built by someone who does the work, not delegates it."
           />
         </Container>
       </section>
@@ -68,7 +69,7 @@ export default function AboutPage() {
             <blockquote className="font-display text-xl font-medium leading-relaxed text-off-white md:text-2xl">
               &ldquo;We believe every business deserves to operate at the speed of AI — not because technology demands it, but because your team&apos;s time is too valuable for manual work.&rdquo;
             </blockquote>
-            <p className="mt-6 text-sm text-muted">— SmartAI Workspace Team</p>
+            <p className="mt-6 text-sm text-muted">— Tariq Osmani, Founder & CEO</p>
           </div>
         </Container>
       </section>
@@ -116,24 +117,71 @@ export default function AboutPage() {
         </Container>
       </section>
 
-      {/* Team */}
+      {/* Founder */}
       <section className="bg-navy-light py-20 md:py-28">
         <Container>
           <SectionHeading
-            eyebrow="Our Team"
-            title="The People Behind the Automation"
-            subtitle="Engineers, strategists, and problem-solvers who live and breathe AI automation."
+            eyebrow="The Founder"
+            title="The Person Behind the Automation"
+            subtitle="Founder-led means you work directly with the person who built the system — no hand-offs, no account managers."
           />
-          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {team.map((member) => (
-              <Card key={member.name} hover={false} className="text-center">
-                <div className="mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-full bg-electric-blue/15 font-display text-xl font-bold text-electric-blue">
-                  {member.name.split(" ").map((n) => n[0]).join("")}
+          <div className="mx-auto max-w-2xl">
+            <Card hover={false} className="flex flex-col items-center gap-6 text-center sm:flex-row sm:text-left sm:items-start">
+              {/* Photo */}
+              <div className="relative shrink-0">
+                <div className="h-64 w-64 rounded-2xl overflow-hidden bg-electric-blue/15 ring-2 ring-electric-blue/30">
+                  <Image
+                    src={founder.photo}
+                    alt={founder.name}
+                    width={256}
+                    height={256}
+                    className="h-full w-full object-cover object-top"
+                    quality={100}
+                    priority
+                    unoptimized
+                  />
                 </div>
-                <h3 className="font-display text-base font-semibold text-off-white">{member.name}</h3>
-                <p className="mt-1 text-sm text-muted">{member.role}</p>
-              </Card>
-            ))}
+                {/* Online indicator */}
+                <span className="absolute bottom-2 right-2 h-3.5 w-3.5 rounded-full bg-green-400 ring-2 ring-charcoal" />
+              </div>
+
+              <div className="flex-1">
+                <p className="text-xs font-semibold uppercase tracking-widest text-accent-cyan mb-1">
+                  {founder.role}
+                </p>
+                <h3 className="font-display text-2xl font-bold text-pure-white">
+                  {founder.name}
+                </h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted">
+                  {founder.bio}
+                </p>
+                <p className="mt-2 text-xs text-muted">
+                  <a href={`mailto:${founder.email}`} className="hover:text-accent-cyan transition-colors">
+                    {founder.email}
+                  </a>
+                </p>
+                <div className="mt-4 flex gap-3 sm:justify-start justify-center">
+                  <a
+                    href="https://linkedin.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-muted transition hover:bg-white/10 hover:text-off-white"
+                    aria-label="LinkedIn"
+                  >
+                    <FaLinkedin size={15} />
+                  </a>
+                  <a
+                    href="https://x.com/Tariq_Osmani26"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-muted transition hover:bg-white/10 hover:text-off-white"
+                    aria-label="Twitter / X"
+                  >
+                    <FaXTwitter size={15} />
+                  </a>
+                </div>
+              </div>
+            </Card>
           </div>
         </Container>
       </section>

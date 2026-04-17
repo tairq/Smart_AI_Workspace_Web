@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import Image from "next/image";
 import { Calendar, User, ArrowLeft } from "lucide-react";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import { getAllPosts, getPostBySlug } from "@/lib/data/blog";
@@ -69,6 +70,25 @@ export default async function BlogPostPage({ params }: Props) {
           </div>
         </Container>
       </section>
+
+      {/* Cover Image */}
+      {post.meta.coverImage && (
+        <section className="pb-0 pt-12 md:pt-16">
+          <Container className="max-w-4xl">
+            <div className="relative h-64 w-full overflow-hidden rounded-2xl sm:h-80 md:h-96">
+              <Image
+                src={post.meta.coverImage}
+                alt={post.meta.title}
+                fill
+                className="object-cover"
+                priority
+                sizes="(max-width: 768px) 100vw, 896px"
+              />
+              <div className="absolute inset-0 bg-gradient-to-t from-navy/40 to-transparent" />
+            </div>
+          </Container>
+        </section>
+      )}
 
       {/* MDX Content */}
       <section className="py-20 md:py-28">

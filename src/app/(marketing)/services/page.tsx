@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Image from "next/image";
 import {
   Workflow,
   Users,
@@ -33,6 +34,7 @@ const services = [
       "Real-time monitoring and alerting dashboards",
       "Version control and rollback capabilities",
     ],
+    image: "/AI-Workflow-Automation.jpg",
   },
   {
     id: "crm",
@@ -49,6 +51,7 @@ const services = [
       "Pipeline analytics and conversion tracking",
       "Bi-directional CRM sync (Salesforce, HubSpot, Pipedrive)",
     ],
+    image: "/CRM-Sales-Automation.jpg",
   },
   {
     id: "data",
@@ -65,6 +68,7 @@ const services = [
       "Cross-platform data synchronization",
       "Custom metrics and KPI tracking",
     ],
+    image: "/Data-Pipeline-Reporting.jpg",
   },
   {
     id: "agents",
@@ -81,6 +85,7 @@ const services = [
       "Human-in-the-loop escalation workflows",
       "Performance analytics and continuous improvement",
     ],
+    image: "/Custom-AI-Agent-Development.jpg",
   },
 ];
 
@@ -132,8 +137,18 @@ export default function ServicesPage() {
                 </div>
               </div>
 
-              {/* Features */}
-              <div className="flex-1">
+              {/* Image + Features */}
+              <div className="flex flex-1 flex-col gap-4">
+                <div className="relative h-52 w-full overflow-hidden rounded-2xl">
+                  <Image
+                    src={service.image}
+                    alt={service.title}
+                    fill
+                    className="object-cover"
+                    sizes="(max-width: 1024px) 100vw, 50vw"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/60 to-transparent" />
+                </div>
                 <div className="glass rounded-2xl p-6 md:p-8">
                   <h3 className="mb-5 text-sm font-semibold uppercase tracking-wider text-accent-cyan">
                     Key Capabilities

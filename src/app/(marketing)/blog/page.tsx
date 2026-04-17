@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowUpRight, Calendar } from "lucide-react";
 import { getAllPosts } from "@/lib/data/blog";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
-import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 
 export const metadata: Metadata = {
@@ -42,39 +42,53 @@ export default function BlogPage() {
                   href={`/blog/${post.slug}`}
                   className="group block"
                 >
-                  <Card className="h-full">
-                    <div className="flex items-start justify-between">
-                      <div>
-                        <h3 className="font-display text-lg font-semibold text-off-white">
-                          {post.title}
-                        </h3>
-                        <div className="mt-2 flex flex-wrap gap-2">
-                          {post.tags.slice(0, 2).map((tag) => (
-                            <Badge key={tag}>{tag}</Badge>
-                          ))}
-                        </div>
+                  <div className="glass h-full overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-accent-cyan/40 hover:shadow-[0_0_24px_0_rgba(0,212,255,0.12)]">
+                    {post.coverImage && (
+                      <div className="relative h-44 w-full overflow-hidden">
+                        <Image
+                          src={post.coverImage}
+                          alt={post.title}
+                          fill
+                          className="object-cover transition-transform duration-500 group-hover:scale-105"
+                          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-charcoal/20 to-transparent" />
                       </div>
-                      <ArrowUpRight
-                        size={18}
-                        className="text-muted opacity-0 transition-opacity group-hover:opacity-100"
-                      />
+                    )}
+                    <div className="p-6">
+                      <div className="flex items-start justify-between">
+                        <div>
+                          <h3 className="font-display text-lg font-semibold text-off-white">
+                            {post.title}
+                          </h3>
+                          <div className="mt-2 flex flex-wrap gap-2">
+                            {post.tags.slice(0, 2).map((tag) => (
+                              <Badge key={tag}>{tag}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                        <ArrowUpRight
+                          size={18}
+                          className="text-muted opacity-0 transition-opacity group-hover:opacity-100"
+                        />
+                      </div>
+                      <p className="mt-3 text-sm leading-relaxed text-muted line-clamp-3">
+                        {post.excerpt}
+                      </p>
+                      <div className="mt-4 flex items-center gap-1.5 text-xs text-muted">
+                        <Calendar size={12} />
+                        <time dateTime={post.date}>
+                          {new Date(post.date).toLocaleDateString("en-US", {
+                            month: "short",
+                            day: "numeric",
+                            year: "numeric",
+                          })}
+                        </time>
+                        <span>·</span>
+                        <span>{post.readingTime} min read</span>
+                      </div>
                     </div>
-                    <p className="mt-3 text-sm leading-relaxed text-muted line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    <div className="mt-4 flex items-center gap-1.5 text-xs text-muted">
-                      <Calendar size={12} />
-                      <time dateTime={post.date}>
-                        {new Date(post.date).toLocaleDateString("en-US", {
-                          month: "short",
-                          day: "numeric",
-                          year: "numeric",
-                        })}
-                      </time>
-                      <span>·</span>
-                      <span>{post.readingTime} min read</span>
-                    </div>
-                  </Card>
+                  </div>
                 </Link>
               ))}
             </div>
