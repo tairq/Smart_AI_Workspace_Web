@@ -1,0 +1,55 @@
+# Smart AI Workspace
+
+> Founder-led B2B AI automation agency helping businesses streamline operations with intelligent workflows, custom AI agents, and end-to-end process automation. Built on n8n, Claude, and modern cloud infrastructure.
+
+Smart AI Workspace is run by Tariq Osmani, a solo founder focused on practical, high-ROI automation for small and mid-sized businesses. Every engagement is delivered end-to-end by the founder — no account managers, no offshore teams. The agency specializes in connecting CRMs, databases, AI models, and SaaS tools into reliable workflows that replace hours of manual work each week.
+
+## Services
+
+- [AI Workflow Automation](https://www.smartaiworkspace.tech/services): Design and deploy end-to-end automated workflows across sales, marketing, ops, and support
+- [CRM & Sales Automation](https://www.smartaiworkspace.tech/services): Lead scoring, pipeline sync, follow-up sequences, and reporting across HubSpot, Salesforce, and custom CRMs
+- [Data Pipeline & Reporting](https://www.smartaiworkspace.tech/services): Aggregate, transform, and deliver data from APIs, databases, and spreadsheets into dashboards and scheduled reports
+- [Custom AI Agent Development](https://www.smartaiworkspace.tech/services): Build AI agents that reason through multi-step tasks — document analysis, customer support triage, content generation, and data extraction
+
+## Industries Served
+
+- [Real Estate](https://www.smartaiworkspace.tech/solutions/real-estate)
+- [E-Commerce](https://www.smartaiworkspace.tech/solutions/e-commerce)
+- [Manufacturing](https://www.smartaiworkspace.tech/solutions/manufacturing)
+- [Marketing Agencies](https://www.smartaiworkspace.tech/solutions/marketing-agencies)
+- [Logistics & Supply Chain](https://www.smartaiworkspace.tech/solutions/logistics)
+- [SaaS](https://www.smartaiworkspace.tech/solutions/saas)
+
+## Key Integrations
+
+- [Claude (Anthropic)](https://www.smartaiworkspace.tech/integrations/claude)
+- [n8n](https://www.smartaiworkspace.tech/integrations/n8n)
+- [OpenAI](https://www.smartaiworkspace.tech/integrations/openai)
+- [HubSpot](https://www.smartaiworkspace.tech/integrations/hubspot)
+- [Salesforce](https://www.smartaiworkspace.tech/integrations/salesforce)
+- [Slack](https://www.smartaiworkspace.tech/integrations/slack)
+- [Notion](https://www.smartaiworkspace.tech/integrations/notion)
+- [Airtable](https://www.smartaiworkspace.tech/integrations/airtable)
+- [Google Sheets](https://www.smartaiworkspace.tech/integrations/google-sheets)
+- [Shopify](https://www.smartaiworkspace.tech/integrations/shopify)
+- [Stripe](https://www.smartaiworkspace.tech/integrations/stripe)
+- [Gmail](https://www.smartaiworkspace.tech/integrations/gmail)
+- [Zapier](https://www.smartaiworkspace.tech/integrations/zapier)
+- [Make](https://www.smartaiworkspace.tech/integrations/make)
+
+## Resources
+
+- [Blog](https://www.smartaiworkspace.tech/blog): Tutorials, case studies, and deep dives on AI automation
+- [Glossary](https://www.smartaiworkspace.tech/glossary): Plain-English definitions of AI and automation terminology
+- [About](https://www.smartaiworkspace.tech/about): Founder story and methodology
+- [Contact](https://www.smartaiworkspace.tech/contact): Project inquiries and consultations
+
+## Tech Stack
+
+The agency builds on n8n (workflow orchestration), Claude and OpenAI (AI reasoning), Next.js and Vercel (web delivery), and integrates with the client's existing tools via API. Workflows are designed for transparency, maintainability, and measurable business outcomes.
+
+## Contact
+
+- Email: info@smartaiworkspace.tech
+- LinkedIn: https://www.linkedin.com/in/tariq-osmani
+- Website: https://www.smartaiworkspace.tech
