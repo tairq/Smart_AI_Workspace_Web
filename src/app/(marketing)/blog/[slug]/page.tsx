@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { Calendar, User, ArrowLeft } from "lucide-react";
+import { Calendar, ArrowLeft, BadgeCheck } from "lucide-react";
+import { siteConfig } from "@/config/site";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 import { getAllPosts, getPostBySlug } from "@/lib/data/blog";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
@@ -52,10 +54,28 @@ export default async function BlogPostPage({ params }: Props) {
             {post.meta.title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted">
-            <span className="flex items-center gap-1.5">
-              <User size={14} />
-              {post.meta.author}
-            </span>
+            <a
+              href={siteConfig.links.linkedin}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-2 transition-colors hover:text-off-white"
+            >
+              <Image
+                src="/team/tariq-osmani.jpeg"
+                alt={post.meta.author}
+                width={28}
+                height={28}
+                className="h-7 w-7 rounded-full object-cover ring-1 ring-accent-cyan/30"
+              />
+              <span className="flex items-center gap-1">
+                {post.meta.author}
+                <BadgeCheck
+                  size={14}
+                  className="fill-accent-cyan text-navy"
+                  aria-label="Verified"
+                />
+              </span>
+            </a>
             <span className="flex items-center gap-1.5">
               <Calendar size={14} />
               <time dateTime={post.meta.date}>
@@ -94,7 +114,11 @@ export default async function BlogPostPage({ params }: Props) {
       <section className="py-20 md:py-28">
         <Container className="max-w-3xl">
           <article className="prose-blog">
-            <MDXRemote source={post.content} components={mdxComponents} />
+            <MDXRemote
+              source={post.content}
+              components={mdxComponents}
+              options={{ mdxOptions: { remarkPlugins: [remarkGfm] } }}
+            />
           </article>
         </Container>
       </section>

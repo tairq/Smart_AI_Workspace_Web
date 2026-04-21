@@ -86,6 +86,25 @@ export const mdxComponents: MDXComponents = {
   strong: (props) => (
     <strong className="font-semibold text-off-white" {...props} />
   ),
+  table: (props) => (
+    <div className="overflow-x-auto">
+      <table
+        className="w-full border-collapse text-left text-sm text-light-gray"
+        {...props}
+      />
+    </div>
+  ),
+  thead: (props) => (
+    <thead className="border-b border-accent-cyan/20 text-off-white" {...props} />
+  ),
+  tbody: (props) => (
+    <tbody className="divide-y divide-charcoal" {...props} />
+  ),
+  tr: (props) => <tr {...props} />,
+  th: (props) => (
+    <th className="px-4 py-3 font-semibold" {...props} />
+  ),
+  td: (props) => <td className="px-4 py-3 align-top" {...props} />,
   img: ({ src, alt, ...props }) => {
     if (!src) return null;
     return (
