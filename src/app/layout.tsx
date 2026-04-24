@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Script from "next/script";
 import { Josefin_Sans } from "next/font/google";
 import { siteConfig } from "@/config/site";
+import { JsonLd, buildOrganization, buildWebSite } from "@/lib/seo/jsonld";
 import "./globals.css";
 
 const josefinSans = Josefin_Sans({
@@ -95,6 +96,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
         />
       </head>
       <body className="min-h-screen bg-background text-foreground font-sans antialiased grain">
+        <JsonLd data={[buildOrganization(), buildWebSite()]} />
         {/* Google Tag Manager (noscript) */}
         <noscript>
           <iframe

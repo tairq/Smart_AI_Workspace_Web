@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Check, ArrowRight } from "lucide-react";
 import { industries } from "@/lib/data/industries";
+import { siteConfig } from "@/config/site";
+import { JsonLd, buildBreadcrumbList } from "@/lib/seo/jsonld";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Card } from "@/components/ui/Card";
@@ -20,6 +22,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `AI Automation for ${ind.name}`,
     description: ind.description,
+    alternates: {
+      canonical: `/solutions/${slug}`,
+    },
   };
 }
 
@@ -28,8 +33,16 @@ export default async function IndustryPage({ params }: Props) {
   const ind = industries.find((i) => i.slug === slug);
   if (!ind) notFound();
 
+  const pageUrl = `${siteConfig.url}/solutions/${slug}`;
+  const crumbs = buildBreadcrumbList([
+    { name: "Home", url: siteConfig.url },
+    { name: "Solutions", url: `${siteConfig.url}/solutions` },
+    { name: ind.name, url: pageUrl },
+  ]);
+
   return (
     <>
+      <JsonLd data={crumbs} />
       {/* Hero */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>

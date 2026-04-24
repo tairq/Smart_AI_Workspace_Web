@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
 import { integrations } from "@/lib/data/integrations";
+import { siteConfig } from "@/config/site";
+import { JsonLd, buildBreadcrumbList } from "@/lib/seo/jsonld";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Card } from "@/components/ui/Card";
@@ -22,6 +24,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${int.name} Integration`,
     description: `Connect ${int.name} to Smart AI Workspace for automated workflows. ${int.description.slice(0, 120)}`,
+    alternates: {
+      canonical: `/integrations/${slug}`,
+    },
   };
 }
 
@@ -32,8 +37,16 @@ export default async function IntegrationPage({ params }: Props) {
 
   const related = integrations.filter((i) => int.relatedIntegrations.includes(i.slug));
 
+  const pageUrl = `${siteConfig.url}/integrations/${slug}`;
+  const crumbs = buildBreadcrumbList([
+    { name: "Home", url: siteConfig.url },
+    { name: "Integrations", url: `${siteConfig.url}/integrations` },
+    { name: int.name, url: pageUrl },
+  ]);
+
   return (
     <>
+      <JsonLd data={crumbs} />
       {/* Hero */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>

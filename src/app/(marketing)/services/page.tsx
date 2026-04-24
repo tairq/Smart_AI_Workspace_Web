@@ -11,11 +11,20 @@ import {
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Button } from "@/components/ui/Button";
+import { siteConfig } from "@/config/site";
+import {
+  JsonLd,
+  buildBreadcrumbList,
+  buildServiceItemList,
+} from "@/lib/seo/jsonld";
 
 export const metadata: Metadata = {
   title: "Our Services",
   description:
     "AI Workflow Automation, CRM & Sales Automation, Data Pipeline & Reporting, and Custom AI Agent Development — tailored for B2B companies.",
+  alternates: {
+    canonical: "/services",
+  },
 };
 
 const services = [
@@ -90,8 +99,23 @@ const services = [
 ];
 
 export default function ServicesPage() {
+  const pageUrl = `${siteConfig.url}/services`;
+  const crumbs = buildBreadcrumbList([
+    { name: "Home", url: siteConfig.url },
+    { name: "Services", url: pageUrl },
+  ]);
+  const serviceList = buildServiceItemList(
+    services.map((s) => ({
+      name: s.title,
+      description: s.description,
+      url: `${pageUrl}#${s.id}`,
+    })),
+    pageUrl,
+  );
+
   return (
     <>
+      <JsonLd data={[serviceList, crumbs]} />
       {/* Hero */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>

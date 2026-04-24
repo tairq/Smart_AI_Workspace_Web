@@ -6,6 +6,11 @@ import { siteConfig } from "@/config/site";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import remarkGfm from "remark-gfm";
 import { getAllPosts, getPostBySlug } from "@/lib/data/blog";
+import {
+  JsonLd,
+  buildArticle,
+  buildBreadcrumbList,
+} from "@/lib/seo/jsonld";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
@@ -25,6 +30,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: post.meta.title,
     description: post.meta.excerpt,
+    alternates: {
+      canonical: `/blog/${slug}`,
+    },
   };
 }
 
@@ -33,8 +41,17 @@ export default async function BlogPostPage({ params }: Props) {
   const post = getPostBySlug(slug);
   if (!post) notFound();
 
+  const postUrl = `${siteConfig.url}/blog/${slug}`;
+  const article = buildArticle(post.meta, postUrl);
+  const crumbs = buildBreadcrumbList([
+    { name: "Home", url: siteConfig.url },
+    { name: "Blog", url: `${siteConfig.url}/blog` },
+    { name: post.meta.title, url: postUrl },
+  ]);
+
   return (
     <>
+      <JsonLd data={[article, crumbs]} />
       {/* Header */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>

@@ -3,6 +3,12 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
 import { glossaryTerms } from "@/lib/data/glossary";
+import { siteConfig } from "@/config/site";
+import {
+  JsonLd,
+  buildBreadcrumbList,
+  buildDefinedTerm,
+} from "@/lib/seo/jsonld";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Card } from "@/components/ui/Card";
@@ -21,6 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `What is ${t.term}?`,
     description: t.definition,
+    alternates: {
+      canonical: `/glossary/${slug}`,
+    },
   };
 }
 
@@ -31,8 +40,17 @@ export default async function GlossaryTermPage({ params }: Props) {
 
   const related = glossaryTerms.filter((g) => t.relatedTerms.includes(g.slug));
 
+  const termUrl = `${siteConfig.url}/glossary/${slug}`;
+  const definedTerm = buildDefinedTerm(t, termUrl);
+  const crumbs = buildBreadcrumbList([
+    { name: "Home", url: siteConfig.url },
+    { name: "Glossary", url: `${siteConfig.url}/glossary` },
+    { name: t.term, url: termUrl },
+  ]);
+
   return (
     <>
+      <JsonLd data={[definedTerm, crumbs]} />
       {/* Header */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
