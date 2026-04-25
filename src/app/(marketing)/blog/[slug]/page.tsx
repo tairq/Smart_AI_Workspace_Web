@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { Calendar, ArrowLeft, BadgeCheck } from "lucide-react";
@@ -75,10 +76,8 @@ export default async function BlogPostPage({ params }: Props) {
             {post.meta.title}
           </h1>
           <div className="mt-4 flex flex-wrap items-center gap-4 text-sm text-muted">
-            <a
-              href={siteConfig.links.linkedin}
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/about/tariq-osmani"
               className="group flex items-center gap-2 transition-colors hover:text-off-white"
             >
               <Image
@@ -96,7 +95,7 @@ export default async function BlogPostPage({ params }: Props) {
                   aria-label="Verified"
                 />
               </span>
-            </a>
+            </Link>
             <span className="flex items-center gap-1.5">
               <Calendar size={14} />
               <time dateTime={post.meta.date}>

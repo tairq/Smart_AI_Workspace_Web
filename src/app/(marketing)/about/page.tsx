@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import { Lightbulb, Shield, Target, Handshake } from "lucide-react";
+import Link from "next/link";
+import { Lightbulb, Shield, Target, Handshake, ArrowRight } from "lucide-react";
 import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { buildPageMetadata } from "@/lib/seo/metadata";
+import { tariqOsmani } from "@/lib/data/author";
 
 export const metadata: Metadata = buildPageMetadata({
   title: "About — Solo-Founded AI Automation",
@@ -38,11 +40,12 @@ const values = [
 ];
 
 const founder = {
-  name: "Tariq Osmani",
-  role: "Founder & CEO",
-  email: "tosmani@smartaiworkspace.tech",
-  bio: "Builder, automation architect, and AI enthusiast. Tariq founded Smart AI Workspace to help businesses escape manual work and operate at the speed of AI. He personally leads every client engagement — from initial workflow audit to production deployment.",
-  photo: "/team/tariq.jpg",
+  name: tariqOsmani.name,
+  role: tariqOsmani.jobTitle,
+  email: tariqOsmani.email,
+  bio: tariqOsmani.shortBio,
+  photo: tariqOsmani.photo,
+  profileUrl: `/about/${tariqOsmani.slug}`,
 };
 
 const partners = [
@@ -165,7 +168,7 @@ export default function AboutPage() {
                 </p>
                 <div className="mt-4 flex gap-3 sm:justify-start justify-center">
                   <a
-                    href="https://linkedin.com"
+                    href={tariqOsmani.social.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-muted transition hover:bg-white/10 hover:text-off-white"
@@ -174,17 +177,26 @@ export default function AboutPage() {
                     <FaLinkedin size={15} />
                   </a>
                   <a
-                    href="https://x.com/Tariq_Osmani26"
+                    href={tariqOsmani.social.x}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex h-8 w-8 items-center justify-center rounded-lg bg-white/5 text-muted transition hover:bg-white/10 hover:text-off-white"
-                    aria-label="Twitter / X"
+                    aria-label="X (Twitter)"
                   >
                     <FaXTwitter size={15} />
                   </a>
                 </div>
               </div>
             </Card>
+            <div className="mt-6 text-center">
+              <Link
+                href={founder.profileUrl}
+                className="inline-flex items-center gap-1.5 text-sm font-medium text-accent-cyan transition-colors hover:text-electric-blue"
+              >
+                Read full bio
+                <ArrowRight size={14} />
+              </Link>
+            </div>
           </div>
         </Container>
       </section>

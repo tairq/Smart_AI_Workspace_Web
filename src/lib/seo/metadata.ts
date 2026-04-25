@@ -5,7 +5,7 @@ type PageMetaInput = {
   title: string;
   description: string;
   path: string;
-  type?: "website" | "article";
+  type?: "website" | "article" | "profile";
   image?: string;
   publishedTime?: string;
   authorName?: string;

@@ -29,7 +29,7 @@ const resourceLinks = [
 
 const socials = [
   { icon: ExternalLink, href: siteConfig.links.linkedin, label: "LinkedIn" },
-  { icon: ExternalLink, href: siteConfig.links.twitter, label: "Twitter" },
+  { icon: ExternalLink, href: siteConfig.links.x, label: "X" },
   { icon: Mail, href: `mailto:${siteConfig.links.email}`, label: "Email" },
 ];
 

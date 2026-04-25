@@ -1,9 +1,11 @@
 import { siteConfig } from "@/config/site";
+import { tariqOsmani } from "@/lib/data/author";
 import type { BlogPost } from "@/lib/data/blog";
 import type { GlossaryTerm } from "@/lib/data/glossary";
 
 const ORG_ID = `${siteConfig.url}/#organization`;
 const WEBSITE_ID = `${siteConfig.url}/#website`;
+const PERSON_ID = `${siteConfig.url}/about/${tariqOsmani.slug}#person`;
 
 export function buildOrganization() {
   return {
@@ -40,6 +42,33 @@ export function buildWebSite() {
   };
 }
 
+export function buildPerson() {
+  const personUrl = `${siteConfig.url}/about/${tariqOsmani.slug}`;
+  const image = tariqOsmani.photo.startsWith("http")
+    ? tariqOsmani.photo
+    : `${siteConfig.url}${tariqOsmani.photo}`;
+
+  const sameAs = [
+    tariqOsmani.social.linkedin,
+    tariqOsmani.social.x,
+    tariqOsmani.social.youtube,
+  ].filter((u) => typeof u === "string" && u.length > 0);
+
+  return {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "@id": PERSON_ID,
+    name: tariqOsmani.name,
+    jobTitle: tariqOsmani.jobTitle,
+    image,
+    url: personUrl,
+    description: tariqOsmani.shortBio,
+    sameAs,
+    worksFor: { "@id": ORG_ID },
+    knowsAbout: [...tariqOsmani.expertise],
+  };
+}
+
 type ArticleAuthor = { name: string; url?: string };
 
 export function buildArticle(
@@ -53,6 +82,14 @@ export function buildArticle(
       : `${siteConfig.url}${post.coverImage}`
     : `${siteConfig.url}/logo-new.png`;
 
+  const authorNode = author
+    ? {
+        "@type": "Person" as const,
+        name: author.name,
+        ...(author.url ? { url: author.url } : {}),
+      }
+    : { "@id": PERSON_ID };
+
   return {
     "@context": "https://schema.org",
     "@type": "BlogPosting",
@@ -62,11 +99,7 @@ export function buildArticle(
     image,
     datePublished: new Date(post.date).toISOString(),
     dateModified: new Date(post.date).toISOString(),
-    author: {
-      "@type": "Person",
-      name: author?.name ?? post.author,
-      url: author?.url ?? siteConfig.links.linkedin,
-    },
+    author: authorNode,
     publisher: { "@id": ORG_ID },
     keywords: post.tags,
     url,

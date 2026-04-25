@@ -10,6 +10,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "",
     "/services",
     "/about",
+    "/about/tariq-osmani",
     "/contact",
     "/solutions",
     "/integrations",

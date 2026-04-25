@@ -6,6 +6,6 @@ export const siteConfig = {
   links: {
     email: "info@smartaiworkspace.tech",
     linkedin: "https://www.linkedin.com/in/tariq-osmani",
-    twitter: "#",
+    x: "https://x.com/Tariq_Osmani26",
   },
 } as const;
