@@ -109,6 +109,21 @@ export function buildServiceItemList(services: ServiceInput[], pageUrl: string) 
   };
 }
 
+export function buildFAQPage(items: { question: string; answer: string }[]) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: items.map((i) => ({
+      "@type": "Question",
+      name: i.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: i.answer,
+      },
+    })),
+  };
+}
+
 export function buildDefinedTerm(term: GlossaryTerm, url: string) {
   return {
     "@context": "https://schema.org",

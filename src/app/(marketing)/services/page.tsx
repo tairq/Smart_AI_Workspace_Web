@@ -10,11 +10,13 @@ import {
 } from "lucide-react";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { FAQ } from "@/components/shared/FAQ";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
 import {
   JsonLd,
   buildBreadcrumbList,
+  buildFAQPage,
   buildServiceItemList,
 } from "@/lib/seo/jsonld";
 
@@ -98,6 +100,39 @@ const services = [
   },
 ];
 
+const servicesFaqs = [
+  {
+    question: "How long does a typical AI automation project take?",
+    answer:
+      "Most engagements run 4 to 10 weeks from discovery to a fully deployed, monitored workflow. Simple integrations (lead-routing, single-system automation) can ship in two to three weeks. Multi-system AI agents with retrieval and human-in-the-loop review typically take eight weeks or more. We scope each project against your specific tools and data, so you get a fixed timeline before any build work starts.",
+  },
+  {
+    question: "Do you replace our existing tools or work with them?",
+    answer:
+      "We work with what you already have. Smart AI Workspace integrates with 200+ business tools — Salesforce, HubSpot, Slack, Notion, Google Workspace, Microsoft 365, custom APIs, and most major SaaS platforms. Tool consolidation only happens if it directly removes friction or cost; we never force a migration to justify the project.",
+  },
+  {
+    question: "What does AI automation typically cost?",
+    answer:
+      "Pricing is project-based and scoped to outcomes, not hours. A workflow automation engagement usually starts in the low five figures; a custom AI agent with knowledge-base integration and ongoing tuning sits higher. After the first discovery call you get a written proposal with fixed deliverables, milestones, and total cost — no hourly billing, no surprise change orders.",
+  },
+  {
+    question: "How do you handle data security and privacy?",
+    answer:
+      "Customer data stays inside your infrastructure wherever possible. We deploy n8n self-hosted or in your cloud account, use OAuth scopes limited to what each workflow needs, encrypt credentials at rest, and route AI calls through providers that contractually do not train on your data. We sign NDAs and DPAs before any integration work begins.",
+  },
+  {
+    question: "What happens if a workflow breaks or an API changes?",
+    answer:
+      "Every workflow ships with error handling, retry logic, and alerting baked in. If an upstream API changes or a node fails, you get notified before your team does — and we include 30 days of post-launch support to fix anything that drifts. Ongoing support and monitoring plans are available for workflows you depend on every day.",
+  },
+  {
+    question: "Can you build automations without engineering resources on our side?",
+    answer:
+      "Yes. Most of our clients have no in-house engineering team. We handle architecture, build, deployment, and documentation end to end, and train one or two of your operators on how to monitor and pause workflows. You stay in control without needing to hire a developer to run it.",
+  },
+];
+
 export default function ServicesPage() {
   const pageUrl = `${siteConfig.url}/services`;
   const crumbs = buildBreadcrumbList([
@@ -115,11 +150,12 @@ export default function ServicesPage() {
 
   return (
     <>
-      <JsonLd data={[serviceList, crumbs]} />
+      <JsonLd data={[serviceList, crumbs, buildFAQPage(servicesFaqs)]} />
       {/* Hero */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="Our Services"
             title="Automation That Drives Results"
             subtitle="We don't just automate tasks — we transform how your business operates. Every solution is custom-built for your workflows, your tools, and your goals."
@@ -194,6 +230,12 @@ export default function ServicesPage() {
           </Container>
         </section>
       ))}
+
+      <FAQ
+        items={servicesFaqs}
+        title="Frequently Asked Questions"
+        eyebrow="FAQs"
+      />
     </>
   );
 }

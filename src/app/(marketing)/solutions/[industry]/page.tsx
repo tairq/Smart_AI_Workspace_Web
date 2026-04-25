@@ -3,9 +3,10 @@ import { notFound } from "next/navigation";
 import { Check, ArrowRight } from "lucide-react";
 import { industries } from "@/lib/data/industries";
 import { siteConfig } from "@/config/site";
-import { JsonLd, buildBreadcrumbList } from "@/lib/seo/jsonld";
+import { JsonLd, buildBreadcrumbList, buildFAQPage } from "@/lib/seo/jsonld";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
+import { FAQ } from "@/components/shared/FAQ";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 
@@ -20,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const ind = industries.find((i) => i.slug === slug);
   if (!ind) return {};
   return {
-    title: `AI Automation for ${ind.name}`,
+    title: ind.metaTitle ?? `AI Automation for ${ind.name}`,
     description: ind.description,
     alternates: {
       canonical: `/solutions/${slug}`,
@@ -42,7 +43,7 @@ export default async function IndustryPage({ params }: Props) {
 
   return (
     <>
-      <JsonLd data={crumbs} />
+      <JsonLd data={[crumbs, buildFAQPage(ind.faqs)]} />
       {/* Hero */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
@@ -138,6 +139,12 @@ export default async function IndustryPage({ params }: Props) {
           </div>
         </Container>
       </section>
+
+      <FAQ
+        items={ind.faqs}
+        title="Frequently Asked Questions"
+        eyebrow={`${ind.name} FAQs`}
+      />
     </>
   );
 }
