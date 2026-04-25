@@ -10,6 +10,7 @@ type SectionHeadingProps = {
   subtitle?: string;
   align?: "center" | "left";
   className?: string;
+  as?: "h1" | "h2";
 };
 
 export function SectionHeading({
@@ -18,9 +19,11 @@ export function SectionHeading({
   subtitle,
   align = "center",
   className,
+  as = "h2",
 }: SectionHeadingProps) {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-60px" });
+  const HeadingTag = as === "h1" ? motion.h1 : motion.h2;
 
   return (
     <div
@@ -41,14 +44,14 @@ export function SectionHeading({
           {eyebrow}
         </motion.p>
       )}
-      <motion.h2
+      <HeadingTag
         initial={{ opacity: 0, y: 16 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={{ duration: 0.55, delay: 0.08, ease: "easeOut" }}
         className="font-display text-3xl font-bold tracking-tight text-off-white sm:text-4xl md:text-5xl"
       >
         {title}
-      </motion.h2>
+      </HeadingTag>
       {subtitle && (
         <motion.p
           initial={{ opacity: 0, y: 16 }}
