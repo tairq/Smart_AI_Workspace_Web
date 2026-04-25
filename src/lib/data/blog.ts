@@ -5,6 +5,7 @@ import matter from "gray-matter";
 export type BlogPost = {
   slug: string;
   title: string;
+  seoTitle?: string;
   date: string;
   excerpt: string;
   author: string;
@@ -35,6 +36,7 @@ function parsePost(
     meta: {
       slug,
       title: data.title,
+      seoTitle: data.seoTitle,
       date: data.date,
       excerpt: data.excerpt,
       author: data.author ?? "Smart AI Workspace Team",
