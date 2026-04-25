@@ -6,12 +6,14 @@ import { getAllPosts } from "@/lib/data/blog";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Badge } from "@/components/ui/Badge";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "Blog",
+export const metadata: Metadata = buildPageMetadata({
+  title: "AI Automation Blog & Insights",
   description:
     "Insights on AI automation, workflow optimization, and business transformation from the Smart AI Workspace team.",
-};
+  path: "/blog",
+});
 
 export default function BlogPage() {
   const posts = getAllPosts();
@@ -21,6 +23,7 @@ export default function BlogPage() {
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="Blog"
             title="Insights & Updates"
             subtitle="Practical guides, case studies, and the latest thinking on AI-powered business automation."

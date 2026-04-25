@@ -4,12 +4,14 @@ import { ArrowUpRight } from "lucide-react";
 import { glossaryTerms } from "@/lib/data/glossary";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "AI & Automation Glossary",
   description:
     "Learn key AI and automation concepts — from workflow automation and ETL to AI agents and conversational AI. A comprehensive glossary for business leaders.",
-};
+  path: "/glossary",
+});
 
 export default function GlossaryPage() {
   const sorted = [...glossaryTerms].sort((a, b) => a.term.localeCompare(b.term));
@@ -19,6 +21,7 @@ export default function GlossaryPage() {
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="Glossary"
             title="AI & Automation Glossary"
             subtitle="Key terms and concepts explained clearly for business leaders and technical teams alike."

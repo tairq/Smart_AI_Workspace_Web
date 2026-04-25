@@ -4,6 +4,7 @@ import { Check, ArrowRight } from "lucide-react";
 import { industries } from "@/lib/data/industries";
 import { siteConfig } from "@/config/site";
 import { JsonLd, buildBreadcrumbList, buildFAQPage } from "@/lib/seo/jsonld";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { FAQ } from "@/components/shared/FAQ";
@@ -20,13 +21,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { industry: slug } = await params;
   const ind = industries.find((i) => i.slug === slug);
   if (!ind) return {};
-  return {
+  return buildPageMetadata({
     title: ind.metaTitle ?? `AI Automation for ${ind.name}`,
     description: ind.description,
-    alternates: {
-      canonical: `/solutions/${slug}`,
-    },
-  };
+    path: `/solutions/${slug}`,
+  });
 }
 
 export default async function IndustryPage({ params }: Props) {

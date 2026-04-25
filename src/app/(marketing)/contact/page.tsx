@@ -86,6 +86,7 @@ export default function ContactPage() {
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="Contact Us"
             title="Let's Build Something Incredible"
             subtitle="Tell us about your automation challenges and we'll show you what's possible."

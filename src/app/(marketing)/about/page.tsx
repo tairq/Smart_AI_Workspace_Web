@@ -5,15 +5,14 @@ import { FaLinkedin, FaXTwitter } from "react-icons/fa6";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/ui/Card";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
-  title: "About Us",
+export const metadata: Metadata = buildPageMetadata({
+  title: "About — Solo-Founded AI Automation",
   description:
     "Solo-founded B2B AI automation consultancy building custom workflows, intelligent agents, and n8n-powered integrations. Book a free discovery call.",
-  alternates: {
-    canonical: "/about",
-  },
-};
+  path: "/about",
+});
 
 const values = [
   {

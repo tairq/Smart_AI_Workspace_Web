@@ -5,12 +5,14 @@ import { ArrowUpRight } from "lucide-react";
 import { industries } from "@/lib/data/industries";
 import { Container } from "@/components/shared/Container";
 import { SectionHeading } from "@/components/shared/SectionHeading";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "AI Automation Solutions by Industry",
   description:
     "Explore how Smart AI Workspace delivers AI automation solutions tailored for real estate, e-commerce, manufacturing, logistics, and more.",
-};
+  path: "/solutions",
+});
 
 export default function SolutionsPage() {
   return (
@@ -18,6 +20,7 @@ export default function SolutionsPage() {
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="Solutions"
             title="AI Automation for Every Industry"
             subtitle="We tailor our automation solutions to the unique challenges, compliance requirements, and workflows of your industry."

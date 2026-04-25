@@ -7,12 +7,14 @@ import { SectionHeading } from "@/components/shared/SectionHeading";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { IntegrationIcon } from "@/components/shared/IntegrationIcon";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Integrations",
   description:
     "Connect Smart AI Workspace with Salesforce, HubSpot, Slack, Shopify, and hundreds more tools to automate your business workflows.",
-};
+  path: "/integrations",
+});
 
 export default function IntegrationsPage() {
   return (
@@ -20,6 +22,7 @@ export default function IntegrationsPage() {
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="Integrations"
             title="Connect Your Entire Stack"
             subtitle="We integrate with the tools you already use — so automation fits seamlessly into your existing workflow."

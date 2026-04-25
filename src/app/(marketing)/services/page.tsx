@@ -19,15 +19,14 @@ import {
   buildFAQPage,
   buildServiceItemList,
 } from "@/lib/seo/jsonld";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = buildPageMetadata({
   title: "Our Services",
   description:
     "AI Workflow Automation, CRM & Sales Automation, Data Pipeline & Reporting, and Custom AI Agent Development — tailored for B2B companies.",
-  alternates: {
-    canonical: "/services",
-  },
-};
+  path: "/services",
+});
 
 const services = [
   {

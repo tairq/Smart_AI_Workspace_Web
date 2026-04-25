@@ -5,6 +5,7 @@ import { Check, ArrowRight } from "lucide-react";
 import { integrations } from "@/lib/data/integrations";
 import { siteConfig } from "@/config/site";
 import { JsonLd, buildBreadcrumbList } from "@/lib/seo/jsonld";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Card } from "@/components/ui/Card";
@@ -21,13 +22,11 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { tool: slug } = await params;
   const int = integrations.find((i) => i.slug === slug);
   if (!int) return {};
-  return {
+  return buildPageMetadata({
     title: `${int.name} Integration`,
     description: int.metaDescription,
-    alternates: {
-      canonical: `/integrations/${slug}`,
-    },
-  };
+    path: `/integrations/${slug}`,
+  });
 }
 
 export default async function IntegrationPage({ params }: Props) {

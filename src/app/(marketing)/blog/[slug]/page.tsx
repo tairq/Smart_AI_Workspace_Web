@@ -11,6 +11,7 @@ import {
   buildArticle,
   buildBreadcrumbList,
 } from "@/lib/seo/jsonld";
+import { buildPageMetadata } from "@/lib/seo/metadata";
 import { Container } from "@/components/shared/Container";
 import { Breadcrumbs } from "@/components/shared/Breadcrumbs";
 import { Badge } from "@/components/ui/Badge";
@@ -27,13 +28,16 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
   const post = getPostBySlug(slug);
   if (!post) return {};
-  return {
-    title: post.meta.title,
+  return buildPageMetadata({
+    title: post.meta.seoTitle ?? post.meta.title,
     description: post.meta.excerpt,
-    alternates: {
-      canonical: `/blog/${slug}`,
-    },
-  };
+    path: `/blog/${slug}`,
+    type: "article",
+    publishedTime: post.meta.date,
+    authorName: post.meta.author,
+    tags: post.meta.tags,
+    absoluteTitle: true,
+  });
 }
 
 export default async function BlogPostPage({ params }: Props) {
