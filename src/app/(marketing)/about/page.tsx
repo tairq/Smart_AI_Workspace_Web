@@ -9,7 +9,10 @@ import { Card } from "@/components/ui/Card";
 export const metadata: Metadata = {
   title: "About Us",
   description:
-    "Smart AI Workspace is a B2B AI automation company helping businesses streamline operations with intelligent workflows, custom agents, and data-driven automation.",
+    "Solo-founded B2B AI automation consultancy building custom workflows, intelligent agents, and n8n-powered integrations. Book a free discovery call.",
+  alternates: {
+    canonical: "/about",
+  },
 };
 
 const values = [
@@ -55,6 +58,7 @@ export default function AboutPage() {
       <section className="gradient-mesh py-24 md:py-32">
         <Container>
           <SectionHeading
+            as="h1"
             eyebrow="About Us"
             title="Building the Future of Business Automation"
             subtitle="Smart AI Workspace is a founder-led studio on a mission to make intelligent automation accessible to every B2B company — built by someone who does the work, not delegates it."

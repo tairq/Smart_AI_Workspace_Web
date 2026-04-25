@@ -2,6 +2,7 @@ export type GlossaryTerm = {
   slug: string;
   term: string;
   definition: string;
+  metaDescription?: string;
   explanation: string;
   benefits: string[];
   useCases: string[];
@@ -36,6 +37,8 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "AI Agents",
     definition:
       "Autonomous software programs powered by artificial intelligence that can perceive their environment, make decisions, and take actions to accomplish specific goals.",
+    metaDescription:
+      "AI agents are autonomous software that perceive their environment, make decisions, and take actions to hit goals. Learn types, use cases, and examples.",
     explanation:
       "AI agents go beyond traditional chatbots and rule-based automation. They use large language models (LLMs) and other AI technologies to understand context, reason about complex situations, and execute multi-step tasks across multiple tools and systems. An AI agent might read an email, look up customer data in a CRM, draft a response, and schedule a follow-up — all without human intervention. The key differentiator is autonomy: agents don't just follow scripts, they adapt to novel situations.",
     benefits: [
@@ -102,6 +105,8 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "API Integration",
     definition:
       "The process of connecting different software applications through their Application Programming Interfaces (APIs) to enable data exchange and coordinated functionality.",
+    metaDescription:
+      "API integration connects software apps through their APIs to exchange data and coordinate functionality. Learn patterns, methods, and examples.",
     explanation:
       "APIs are the connective tissue of modern automation. When two systems need to share data or trigger actions in each other, API integration makes it possible. REST APIs, GraphQL endpoints, and webhooks allow automation platforms to read, write, and subscribe to events across hundreds of tools. Well-designed API integrations are more reliable and efficient than screen-scraping or RPA approaches, making them the preferred method for connecting cloud-based applications.",
     benefits: [
@@ -146,6 +151,8 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "ETL (Extract, Transform, Load)",
     definition:
       "A data integration pattern that extracts data from source systems, transforms it into a suitable format, and loads it into a target system such as a data warehouse.",
+    metaDescription:
+      "ETL is a data pattern that extracts from source systems, transforms the data, and loads it into targets like data warehouses. Learn stages and examples.",
     explanation:
       "ETL is one of the most fundamental patterns in data engineering. Extract pulls raw data from databases, APIs, files, or streams. Transform cleans, validates, enriches, and restructures the data — handling type conversions, deduplication, and business logic. Load writes the transformed data to its destination. Modern variants include ELT (load raw data first, transform in the warehouse) which leverages the processing power of cloud data warehouses.",
     benefits: [
@@ -168,6 +175,8 @@ export const glossaryTerms: GlossaryTerm[] = [
     term: "MLOps (Machine Learning Operations)",
     definition:
       "A set of practices that combines machine learning, DevOps, and data engineering to deploy, monitor, and maintain ML models in production reliably and efficiently.",
+    metaDescription:
+      "MLOps combines machine learning, DevOps, and data engineering practices to deploy, monitor, and maintain ML models in production. Learn key practices.",
     explanation:
       "MLOps bridges the gap between building ML models and running them in production. It covers the entire ML lifecycle: data preparation, model training, testing, deployment, monitoring, and retraining. Without MLOps, models that work in notebooks fail in production — data drift causes accuracy to degrade, models aren't updated, and there's no visibility into performance. MLOps brings software engineering rigor to machine learning.",
     benefits: [

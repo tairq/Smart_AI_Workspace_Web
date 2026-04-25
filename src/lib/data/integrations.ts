@@ -3,6 +3,7 @@ export type Integration = {
   name: string;
   category: string;
   description: string;
+  metaDescription: string;
   brandColor: string;
   useCases: string[];
   setupSteps: string[];
@@ -17,6 +18,8 @@ export const integrations: Integration[] = [
     brandColor: "#CC785C",
     description:
       "Integrate Anthropic's Claude directly into your automation workflows. Use Claude's advanced reasoning, analysis, and generation capabilities to power intelligent decision-making at any step in your pipeline.",
+    metaDescription:
+      "Add Claude's reasoning and generation to any automation step. Analyze docs, build agents, classify data at scale. See the Claude integration.",
     useCases: [
       "Analyze and summarize documents, contracts, and reports with high accuracy",
       "Build AI agents that reason through complex multi-step tasks",
@@ -39,6 +42,8 @@ export const integrations: Integration[] = [
     brandColor: "#EA4B71",
     description:
       "n8n is the core automation engine powering Smart AI Workspace. Build visual, code-optional workflows that connect your entire tool stack with AI-powered logic, webhooks, and 400+ native integrations.",
+    metaDescription:
+      "Run n8n as your automation engine — visual, code-optional workflows connecting 400+ tools with AI logic, webhooks, and native integrations. See setup.",
     useCases: [
       "Orchestrate end-to-end business workflows across hundreds of tools",
       "Build AI agent pipelines with looping, branching, and human-in-the-loop steps",
@@ -61,6 +66,8 @@ export const integrations: Integration[] = [
     brandColor: "#000000",
     description:
       "Deploy and host your AI-powered web applications on Vercel's global edge network. Seamlessly connect frontend deployments to n8n automation backends for fast, scalable, production-ready solutions.",
+    metaDescription:
+      "Host AI-powered web apps on Vercel's edge network and wire them to n8n automation backends. Production-ready deploys in minutes. See integration.",
     useCases: [
       "Deploy Next.js frontends with instant global edge distribution",
       "Trigger n8n workflows from Vercel serverless functions",
@@ -83,6 +90,8 @@ export const integrations: Integration[] = [
     brandColor: "#00A1E0",
     description:
       "Connect Salesforce to your automation workflows for bi-directional sync of leads, contacts, opportunities, and custom objects. Trigger automations from Salesforce events and push enriched data back in real time.",
+    metaDescription:
+      "Sync Salesforce leads, contacts, and opportunities bi-directionally with your automation stack. Trigger workflows from CRM events. See how it works.",
     useCases: [
       "Auto-create leads from web forms and enrich with third-party data",
       "Trigger follow-up sequences when opportunities change stage",
@@ -105,6 +114,8 @@ export const integrations: Integration[] = [
     brandColor: "#FF7A59",
     description:
       "Integrate HubSpot with your AI automation stack to supercharge marketing, sales, and service operations. Automate contact enrichment, deal progression, and cross-platform data flows.",
+    metaDescription:
+      "Connect HubSpot to your AI automation stack. Automate contact enrichment, deal progression, and cross-tool data sync. See the HubSpot integration.",
     useCases: [
       "Enrich new contacts with firmographic and intent data automatically",
       "Trigger personalized email sequences based on website behavior",
@@ -127,6 +138,8 @@ export const integrations: Integration[] = [
     brandColor: "#4A154B",
     description:
       "Turn Slack into your automation command center. Receive alerts, approve workflows, trigger actions, and get AI-generated summaries — all without leaving your workspace.",
+    metaDescription:
+      "Turn Slack into your automation command center. Receive alerts, approve workflows, trigger actions, and get AI summaries in-channel. See setup.",
     useCases: [
       "Get real-time alerts when workflows complete or fail",
       "Approve or reject workflow steps directly from Slack",
@@ -149,6 +162,8 @@ export const integrations: Integration[] = [
     brandColor: "#000000",
     description:
       "Connect Notion databases and pages to your automation workflows. Sync project data, auto-generate documentation, and keep your knowledge base updated automatically.",
+    metaDescription:
+      "Connect Notion databases and pages to your automation workflows. Sync project data, auto-generate docs, keep knowledge bases fresh. See how it works.",
     useCases: [
       "Auto-create project pages when new deals close in CRM",
       "Sync task databases with external project management tools",
@@ -171,6 +186,8 @@ export const integrations: Integration[] = [
     brandColor: "#18BFFF",
     description:
       "Use Airtable as a flexible data layer for your automation workflows. Read, write, and transform records across bases to power everything from inventory tracking to content calendars.",
+    metaDescription:
+      "Use Airtable as a flexible data layer for automation. Read, write, and transform records to power inventory, content, and ops workflows. See how.",
     useCases: [
       "Use Airtable as the data source for automated email campaigns",
       "Sync inventory levels between Airtable and e-commerce platforms",
@@ -193,6 +210,8 @@ export const integrations: Integration[] = [
     brandColor: "#34A853",
     description:
       "Automate data flows in and out of Google Sheets. Use spreadsheets as workflow inputs, reporting destinations, or data transformation layers — no more manual exports.",
+    metaDescription:
+      "Automate data in and out of Google Sheets. Use spreadsheets as workflow inputs, reporting targets, or transform layers — no manual exports. See how.",
     useCases: [
       "Auto-populate reports from CRM and analytics data",
       "Use sheet rows as triggers for automation workflows",
@@ -215,6 +234,8 @@ export const integrations: Integration[] = [
     brandColor: "#FF4A00",
     description:
       "Extend your automation capabilities by connecting SmartAI workflows to Zapier's 7,000+ app ecosystem. Bridge gaps between niche tools and enterprise systems.",
+    metaDescription:
+      "Bridge Smart AI Workspace workflows to Zapier's 7,000+ app ecosystem. Connect niche tools to enterprise systems without custom code. See integration.",
     useCases: [
       "Connect niche industry tools that don't have native integrations",
       "Migrate existing Zapier automations to more robust AI workflows",
@@ -237,6 +258,8 @@ export const integrations: Integration[] = [
     brandColor: "#6D00CC",
     description:
       "Combine Make's visual automation builder with SmartAI's AI capabilities for complex, multi-branch workflows that handle data transformation and business logic at scale.",
+    metaDescription:
+      "Pair Make's visual automation builder with AI capabilities for complex, multi-branch workflows and data transformation at scale. See the integration.",
     useCases: [
       "Orchestrate complex multi-step data transformations",
       "Build visual workflow prototypes before production deployment",
@@ -259,6 +282,8 @@ export const integrations: Integration[] = [
     brandColor: "#6264A7",
     description:
       "Bring automation into Microsoft Teams with notifications, approval workflows, and AI-powered assistants that keep your team informed and in control.",
+    metaDescription:
+      "Bring automation into Microsoft Teams with notifications, approval workflows, and AI assistants that keep your team informed. See integration.",
     useCases: [
       "Post workflow notifications to Teams channels",
       "Request approvals via adaptive cards",
@@ -281,6 +306,8 @@ export const integrations: Integration[] = [
     brandColor: "#96BF48",
     description:
       "Automate your Shopify store operations — from inventory management and order processing to customer communication and analytics reporting.",
+    metaDescription:
+      "Automate Shopify store operations — inventory, order processing, customer comms, and analytics reporting — with AI-powered workflows. See how.",
     useCases: [
       "Sync inventory across Shopify and other sales channels",
       "Automate order fulfillment and shipping notifications",
@@ -303,6 +330,8 @@ export const integrations: Integration[] = [
     brandColor: "#635BFF",
     description:
       "Connect Stripe to automate payment workflows, revenue reporting, and customer lifecycle events. Trigger actions on successful charges, subscriptions, refunds, and disputes.",
+    metaDescription:
+      "Connect Stripe to automate payment workflows, revenue reporting, and customer lifecycle events. Trigger on charges, subs, and disputes. See how.",
     useCases: [
       "Auto-provision accounts when subscriptions activate",
       "Trigger onboarding sequences after successful payment",
@@ -325,6 +354,8 @@ export const integrations: Integration[] = [
     brandColor: "#EA4335",
     description:
       "Automate email workflows with Gmail. Send personalized messages, parse inbound emails to trigger workflows, and keep your inbox-driven processes running hands-free.",
+    metaDescription:
+      "Automate email with Gmail. Send personalized messages, parse inbound mail to trigger workflows, keep inbox-driven ops running hands-free. See how.",
     useCases: [
       "Send personalized outreach emails from workflow triggers",
       "Parse incoming emails to create CRM contacts or support tickets",
@@ -347,6 +378,8 @@ export const integrations: Integration[] = [
     brandColor: "#181717",
     description:
       "Integrate GitHub with your automation workflows to connect code activity to business processes — from PR reviews to release deployments and team notifications.",
+    metaDescription:
+      "Wire GitHub into your automation workflows. Connect PR reviews, releases, and team notifications to your broader business processes. See how.",
     useCases: [
       "Notify stakeholders when PRs are merged or deployments complete",
       "Auto-create project tasks from GitHub issues",
@@ -369,6 +402,8 @@ export const integrations: Integration[] = [
     brandColor: "#0052CC",
     description:
       "Sync Jira with your automation ecosystem to keep engineering and business teams aligned. Automate issue creation, status updates, and cross-tool reporting.",
+    metaDescription:
+      "Sync Jira with your automation ecosystem to align engineering and ops. Automate issue creation, status updates, and cross-tool reporting. See how.",
     useCases: [
       "Auto-create Jira tickets from customer support escalations",
       "Sync sprint status to dashboards and stakeholder reports",
@@ -391,6 +426,8 @@ export const integrations: Integration[] = [
     brandColor: "#03363D",
     description:
       "Automate support operations by connecting Zendesk to your AI workflows. Triage tickets, escalate urgent issues, and sync support data with your CRM and product tools.",
+    metaDescription:
+      "Connect Zendesk to AI automation workflows. Triage tickets, escalate urgent issues, and sync support data with CRM and product tools. See how.",
     useCases: [
       "Auto-tag and route tickets using AI classification",
       "Escalate urgent tickets to Slack and on-call systems",
@@ -413,6 +450,8 @@ export const integrations: Integration[] = [
     brandColor: "#FFE01B",
     description:
       "Automate your email marketing pipeline with Mailchimp. Sync audience segments, trigger campaigns from external events, and track engagement back to your CRM.",
+    metaDescription:
+      "Automate your email marketing pipeline with Mailchimp. Sync audience segments, trigger campaigns from external events, track engagement. See how.",
     useCases: [
       "Add contacts to Mailchimp audiences from CRM events",
       "Trigger drip campaigns when leads reach scoring thresholds",
@@ -435,6 +474,8 @@ export const integrations: Integration[] = [
     brandColor: "#F22F46",
     description:
       "Add SMS, voice, and WhatsApp to your automation workflows via Twilio. Send transactional messages, power two-way SMS bots, and keep customers informed in real time.",
+    metaDescription:
+      "Add SMS, voice, and WhatsApp to automation workflows via Twilio. Send transactional messages, run two-way SMS bots, keep customers in loop. See how.",
     useCases: [
       "Send SMS confirmations for form submissions and bookings",
       "Build two-way SMS workflows for lead qualification",
@@ -457,6 +498,8 @@ export const integrations: Integration[] = [
     brandColor: "#412991",
     description:
       "Embed GPT-4, Whisper, and DALL·E into your automation workflows. Summarize text, classify data, generate content, and build AI-powered decision layers at any step.",
+    metaDescription:
+      "Embed GPT-4, Whisper, and DALL·E into automation workflows. Summarize text, classify data, generate content, build AI decision layers. See how.",
     useCases: [
       "Summarize support tickets and sales calls automatically",
       "Classify and route inbound data using GPT-4",
@@ -479,6 +522,8 @@ export const integrations: Integration[] = [
     brandColor: "#E37400",
     description:
       "Pull GA4 data into your automation workflows for reporting, alerting, and audience activation. Combine web analytics with CRM and ad platform data for a full picture.",
+    metaDescription:
+      "Pull GA4 data into automation workflows for reporting, alerting, and audience activation. Combine web data with CRM and ad platforms. See how.",
     useCases: [
       "Alert teams when traffic anomalies are detected",
       "Sync GA4 audience segments to ad platforms automatically",
@@ -501,6 +546,8 @@ export const integrations: Integration[] = [
     brandColor: "#4169E1",
     description:
       "Connect PostgreSQL databases directly to your automation workflows. Query, insert, update, and transform data without manual SQL management or custom scripts.",
+    metaDescription:
+      "Connect PostgreSQL databases to automation workflows directly. Query, insert, update, and transform data without custom scripts or manual SQL. See how.",
     useCases: [
       "Query production data to power scheduled business reports",
       "Insert enriched lead data from CRM events into your data warehouse",

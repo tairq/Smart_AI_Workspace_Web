@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!int) return {};
   return {
     title: `${int.name} Integration`,
-    description: `Connect ${int.name} to Smart AI Workspace for automated workflows. ${int.description.slice(0, 120)}`,
+    description: int.metaDescription,
     alternates: {
       canonical: `/integrations/${slug}`,
     },

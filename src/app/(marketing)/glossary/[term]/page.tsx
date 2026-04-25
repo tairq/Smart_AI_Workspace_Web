@@ -26,7 +26,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!t) return {};
   return {
     title: `What is ${t.term}?`,
-    description: t.definition,
+    description: t.metaDescription ?? t.definition,
     alternates: {
       canonical: `/glossary/${slug}`,
     },
