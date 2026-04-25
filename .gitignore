@@ -45,3 +45,12 @@ next-env.d.ts
 
 # screenshots
 temporary screenshots/
+
+# Anthropic-bundled Claude Code skills (live in ~/.claude/skills, not project-specific)
+.claude/skills/canvas-design/
+.claude/skills/theme-factory/
+.claude/skills/frontend-design/
+.claude/skills/content-creator/
+.claude/skills/programmatic-seo/
+.claude/skills/cc-skill-security-review/
+.claude/skills/README.md

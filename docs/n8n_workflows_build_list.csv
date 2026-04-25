@@ -1,0 +1,13 @@
+Priority,#,Workflow Name,Description,Status,Dependencies,Est. Build Time
+1 - Critical,WF-10,Global Error Handler,Catches failures in any workflow — logs to Airtable + alerts Slack and email for critical failures,Not Built,Airtable + Slack + Resend credentials,30 min
+1 - Critical,WF-01,Contact Form Lead Processor,Receives form submissions → saves to Airtable → emails prospect + owner → Slack notification → triggers nurture,Not Built,WF-10 + Airtable + Slack + Resend,45 min
+1 - Critical,WF-02,Lead Nurture Email Sequence,10-day drip sequence: 3 emails at Day 2 / Day 5 / Day 10 after form submission,Not Built,WF-01 + Airtable + Resend,60 min
+1 - Critical,WF-03,Site Health Monitor,Pings site every 5 min — alerts Slack if site is down or response > 3s,Built ✓,WF-10 + Airtable + Slack,30 min
+2 - Important,WF-04,Weekly Lead Report,Every Monday 8am: lead totals + by-service breakdown → email owner + Slack post,Built ✓,WF-01 + Google Sheets + Slack + Gmail,30 min
+2 - Important,WF-05,Daily Follow-Up Reminder,Weekdays 9am: lists all New leads not contacted in 24h+ → Slack DM to owner,Not Built,WF-01 + Airtable + Slack,20 min
+2 - Important,WF-06,Monthly Analytics Report,1st of each month: conversion rate + avg response time + nurture stats → full email report,Not Built,WF-01 + Airtable + Resend + Slack,30 min
+2 - Important,WF-07,Calendly Booking Handler,Receives Calendly booking webhook → updates Airtable → emails prospect meeting prep,Not Built,WF-01 + Airtable + Resend + Calendly,30 min
+2 - Important,WF-11,Stale Lead Re-Engagement,Fridays 10am: re-emails leads who finished nurture 14+ days ago with no reply,Not Built,WF-02 + Airtable + Resend + Slack,30 min
+3 - Future,WF-08,Blog Content Manager,Publishes blog posts to site + LinkedIn + sends newsletter to opted-in leads,Not Built (build when /blog page is live),WF-01 + Airtable + Resend + LinkedIn API,45 min
+3 - Future,WF-09,Pricing / Quote Request Handler,Receives quote requests → scores lead → routes by budget tier → sends tier-specific email,Not Built (build when /pricing page is live),WF-10 + Airtable + Resend + Slack,45 min
+3 - Future,WF-12,LinkedIn Content Amplification,Formats and posts content to LinkedIn with hashtags + logs to Airtable,Not Built (build when LinkedIn strategy is ready),WF-08 + LinkedIn OAuth2,30 min

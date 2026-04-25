@@ -1,0 +1,378 @@
+{
+  "generatedAt": "2026-04-23T16:39:17.108Z",
+  "urlCount": 51,
+  "scores": {
+    "indexability": 50,
+    "onPage": 68,
+    "structuredData": 0,
+    "contentDepth": 98,
+    "socialOg": 50,
+    "internalLinking": 100,
+    "accessibilitySEO": 100,
+    "aiReadiness": 100
+  },
+  "overall": 71,
+  "issues": {
+    "dupTitlesCount": 0,
+    "dupDescsCount": 0,
+    "dupTitles": [],
+    "dupDescs": [],
+    "noH1Pages": [
+      "https://www.smartaiworkspace.tech/services",
+      "https://www.smartaiworkspace.tech/about",
+      "https://www.smartaiworkspace.tech/contact",
+      "https://www.smartaiworkspace.tech/solutions",
+      "https://www.smartaiworkspace.tech/integrations",
+      "https://www.smartaiworkspace.tech/glossary",
+      "https://www.smartaiworkspace.tech/blog"
+    ],
+    "multH1Pages": [],
+    "longTitles": [
+      {
+        "url": "https://www.smartaiworkspace.tech/solutions/logistics",
+        "len": 63,
+        "title": "AI Automation for Logistics & Supply Chain | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/robotic-process-automation",
+        "len": 62,
+        "title": "What is Robotic Process Automation (RPA)? | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/business-process-automation",
+        "len": 63,
+        "title": "What is Business Process Automation (BPA)? | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/machine-learning-ops",
+        "len": 65,
+        "title": "What is MLOps (Machine Learning Operations)? | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/intelligent-document-processing",
+        "len": 67,
+        "title": "What is Intelligent Document Processing (IDP)? | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/blog/ai-agents-autonomous-systems-guide-2026",
+        "len": 83,
+        "title": "AI Agents & Autonomous Systems: How They Actually Work in 2026 | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/blog/ai-deployment-at-scale-2026",
+        "len": 71,
+        "title": "AI Deployment at Scale: No Longer Just Experiments | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/blog/claude-opus-4-7-new-features-2026",
+        "len": 73,
+        "title": "Claude Opus 4.7 Is Here: Everything You Need to Know | Smart AI Workspace"
+      }
+    ],
+    "shortTitles": [
+      {
+        "url": "https://www.smartaiworkspace.tech/about",
+        "len": 29,
+        "title": "About Us | Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/contact",
+        "len": 18,
+        "title": "Smart AI Workspace"
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/blog",
+        "len": 25,
+        "title": "Blog | Smart AI Workspace"
+      }
+    ],
+    "longDescs": [
+      {
+        "url": "https://www.smartaiworkspace.tech/about",
+        "len": 161
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/claude",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/n8n",
+        "len": 179
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/vercel",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/salesforce",
+        "len": 186
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/hubspot",
+        "len": 183
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/slack",
+        "len": 181
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/notion",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/airtable",
+        "len": 184
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/google-sheets",
+        "len": 189
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/zapier",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/make",
+        "len": 180
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/microsoft-teams",
+        "len": 191
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/shopify",
+        "len": 183
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/stripe",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/gmail",
+        "len": 181
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/github",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/jira",
+        "len": 180
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/zendesk",
+        "len": 183
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/mailchimp",
+        "len": 185
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/twilio",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/openai",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/google-analytics",
+        "len": 192
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/integrations/postgresql",
+        "len": 186
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/ai-agents",
+        "len": 163
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/api-integration",
+        "len": 168
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/etl",
+        "len": 164
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/glossary/machine-learning-ops",
+        "len": 162
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/blog/ai-deployment-at-scale-2026",
+        "len": 182
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/blog/claude-opus-4-7-new-features-2026",
+        "len": 227
+      },
+      {
+        "url": "https://www.smartaiworkspace.tech/blog/welcome-to-smart-ai-workspace",
+        "len": 162
+      }
+    ],
+    "shortDescs": [],
+    "thin": [
+      {
+        "url": "https://www.smartaiworkspace.tech/contact",
+        "words": 298
+      }
+    ],
+    "noCanonical": 51,
+    "noJsonLd": 51,
+    "noOgImage": 51
+  },
+  "templateSummary": [
+    {
+      "template": "home",
+      "count": 1,
+      "avgWordCount": 644,
+      "avgTitleLen": 51,
+      "avgMetaLen": 153,
+      "avgInternalLinks": 28,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 1
+    },
+    {
+      "template": "services",
+      "count": 1,
+      "avgWordCount": 1470,
+      "avgTitleLen": 33,
+      "avgMetaLen": 136,
+      "avgInternalLinks": 25,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 0
+    },
+    {
+      "template": "about",
+      "count": 1,
+      "avgWordCount": 1263,
+      "avgTitleLen": 29,
+      "avgMetaLen": 161,
+      "avgInternalLinks": 22,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 0
+    },
+    {
+      "template": "contact",
+      "count": 1,
+      "avgWordCount": 298,
+      "avgTitleLen": 18,
+      "avgMetaLen": 150,
+      "avgInternalLinks": 22,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 0
+    },
+    {
+      "template": "solutions-list",
+      "count": 1,
+      "avgWordCount": 988,
+      "avgTitleLen": 56,
+      "avgMetaLen": 137,
+      "avgInternalLinks": 27,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 0
+    },
+    {
+      "template": "integrations-list",
+      "count": 1,
+      "avgWordCount": 2181,
+      "avgTitleLen": 33,
+      "avgMetaLen": 129,
+      "avgInternalLinks": 45,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 0
+    },
+    {
+      "template": "glossary-list",
+      "count": 1,
+      "avgWordCount": 976,
+      "avgTitleLen": 45,
+      "avgMetaLen": 154,
+      "avgInternalLinks": 31,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 0
+    },
+    {
+      "template": "blog-list",
+      "count": 1,
+      "avgWordCount": 898,
+      "avgTitleLen": 25,
+      "avgMetaLen": 111,
+      "avgInternalLinks": 25,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 0
+    },
+    {
+      "template": "solution",
+      "count": 6,
+      "avgWordCount": 730,
+      "avgTitleLen": 52,
+      "avgMetaLen": 129,
+      "avgInternalLinks": 25,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 6
+    },
+    {
+      "template": "integration",
+      "count": 23,
+      "avgWordCount": 867,
+      "avgTitleLen": 40,
+      "avgMetaLen": 183,
+      "avgInternalLinks": 28,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 23
+    },
+    {
+      "template": "glossary-term",
+      "count": 10,
+      "avgWordCount": 897,
+      "avgTitleLen": 54,
+      "avgMetaLen": 153,
+      "avgInternalLinks": 27,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 10
+    },
+    {
+      "template": "blog-post",
+      "count": 4,
+      "avgWordCount": 2590,
+      "avgTitleLen": 72,
+      "avgMetaLen": 177,
+      "avgInternalLinks": 26,
+      "canonicalCoverage": 0,
+      "jsonLdCoverage": 0,
+      "ogImageCoverage": 0,
+      "h1Coverage": 4
+    }
+  ],
+  "infrastructure": {
+    "robotsTxt": "present",
+    "llmsTxt": "present",
+    "securityTxt": "MISSING",
+    "favicon": "present"
+  }
+}

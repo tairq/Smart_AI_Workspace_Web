@@ -17,7 +17,7 @@ import {
   JsonLd,
   buildBreadcrumbList,
   buildFAQPage,
-  buildServiceItemList,
+  buildService,
 } from "@/lib/seo/jsonld";
 import { buildPageMetadata } from "@/lib/seo/metadata";
 
@@ -138,18 +138,20 @@ export default function ServicesPage() {
     { name: "Home", url: siteConfig.url },
     { name: "Services", url: pageUrl },
   ]);
-  const serviceList = buildServiceItemList(
-    services.map((s) => ({
+  const serviceNodes = services.map((s) =>
+    buildService({
       name: s.title,
-      description: s.description,
+      description: `${s.description} ${s.details}`,
       url: `${pageUrl}#${s.id}`,
-    })),
-    pageUrl,
+      features: s.features,
+    }),
   );
 
   return (
     <>
-      <JsonLd data={[serviceList, crumbs, buildFAQPage(servicesFaqs)]} />
+      <JsonLd
+        data={[...serviceNodes, crumbs, buildFAQPage(servicesFaqs)]}
+      />
       {/* Hero */}
       <section className="gradient-mesh py-24 md:py-32">
         <Container>

@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-04-24T05:56:44.823Z",
+  "results": [
+    {
+      "url": "https://www.smartaiworkspace.tech",
+      "strategy": "mobile",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech",
+      "strategy": "desktop",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/services",
+      "strategy": "mobile",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/services",
+      "strategy": "desktop",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/blog/ai-agents-autonomous-systems-guide-2026",
+      "strategy": "mobile",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/blog/ai-agents-autonomous-systems-guide-2026",
+      "strategy": "desktop",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/solutions/real-estate",
+      "strategy": "mobile",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/solutions/real-estate",
+      "strategy": "desktop",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/integrations/claude",
+      "strategy": "mobile",
+      "error": "HTTP 429",
+      "attempts": 4
+    },
+    {
+      "url": "https://www.smartaiworkspace.tech/integrations/claude",
+      "strategy": "desktop",
+      "error": "HTTP 429",
+      "attempts": 4
+    }
+  ]
+}

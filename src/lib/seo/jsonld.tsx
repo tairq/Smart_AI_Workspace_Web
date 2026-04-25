@@ -119,26 +119,37 @@ export function buildBreadcrumbList(items: { name: string; url: string }[]) {
   };
 }
 
-type ServiceInput = { name: string; description: string; url?: string };
+type ServiceInput = {
+  name: string;
+  description: string;
+  url: string;
+  features?: string[];
+};
 
-export function buildServiceItemList(services: ServiceInput[], pageUrl: string) {
+export function buildService(input: ServiceInput) {
+  const { name, description, url, features } = input;
   return {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    url: pageUrl,
-    itemListElement: services.map((s, i) => ({
-      "@type": "ListItem",
-      position: i + 1,
-      item: {
-        "@type": "Service",
-        name: s.name,
-        description: s.description,
-        serviceType: s.name,
-        areaServed: "Worldwide",
-        provider: { "@id": ORG_ID },
-        ...(s.url ? { url: s.url } : {}),
-      },
-    })),
+    "@type": "Service",
+    "@id": url,
+    name,
+    description,
+    serviceType: name,
+    url,
+    areaServed: "Worldwide",
+    provider: { "@id": ORG_ID },
+    ...(features && features.length > 0
+      ? {
+          hasOfferCatalog: {
+            "@type": "OfferCatalog",
+            name: `${name} capabilities`,
+            itemListElement: features.map((f) => ({
+              "@type": "Offer",
+              itemOffered: { "@type": "Service", name: f },
+            })),
+          },
+        }
+      : {}),
   };
 }
 
