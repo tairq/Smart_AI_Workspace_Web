@@ -1,0 +1,200 @@
+---
+title: "Prompt Caching with Claude: How I Cut Our Automation Bills by 70%"
+seoTitle: "Prompt Caching Claude (2026): How I Cut API Bills by 70% on n8n"
+date: "2026-04-28"
+excerpt: "A founder-led walkthrough of Anthropic prompt caching: how to cut Claude API costs by ~70% on n8n automations, with a real cost breakdown and the exact mistakes to avoid."
+author: "Tariq Osmani"
+tags: ["AI Automation", "Claude", "n8n", "Prompt Caching"]
+coverImage: "https://images.unsplash.com/photo-1554224155-8d04cb21cd6c?w=1200&q=80&auto=format&fit=crop"
+---
+
+The first time a client of mine got their Anthropic invoice, they paid for it in panic. The automation was working — Claude was triaging support tickets against a 30-page knowledge base, accurately, around the clock — and the monthly bill had a comma in it that didn't used to be there. Most of that bill was a tax I didn't have to pay. I just hadn't turned on prompt caching yet.
+
+I run [n8n in production](https://n8n.smartaiworkspace.tech) for clients whose workflows lean on Claude for the reasoning step — lead enrichment, document extraction, customer-support triage. Across that book of work, **turning on Anthropic prompt caching properly cut the input-token bill by roughly 70%**, and shaved noticeable latency off every warm execution. This post is the version of that conversation I wish I'd had before I shipped the first version.
+
+---
+
+## TL;DR
+
+- **Prompt caching** lets Anthropic store a static prefix of your prompt (system, tools, RAG context, few-shot examples) and replay it on subsequent calls.
+- **Cache reads cost ~10% of normal input tokens.** Cache writes cost **1.25× for the 5-minute TTL** and **2× for the 1-hour TTL**.
+- For a workflow that re-uses the same 8K-token prefix across 5,000 monthly executions, that's the difference between **~$200/mo and ~$30/mo** on the input side.
+- It pays off only if the prefix is reused enough times within the TTL window. Two reads to break even at 5-minute TTL; three at 1-hour.
+- In n8n, the trick is making the messages array byte-identical across executions and putting `cache_control` on the last stable block.
+
+---
+
+## What Prompt Caching Actually Is
+
+Anthropic prompt caching is a prefix match. You mark a point in your prompt with a `cache_control` breakpoint, and Anthropic stores the bytes up to that point. The next request that sends the *exact same prefix* skips the work of re-reading those tokens — you pay roughly 10% of the normal input price for them, and the model gets to your fresh content faster.
+
+The render order is fixed: **`tools` → `system` → `messages`**. A breakpoint on the last system block caches your tool definitions and your system prompt together. A breakpoint on the most recent message extends the cache through the conversation history.
+
+The cache is keyed off the literal bytes. One floating timestamp in your system prompt, one unsorted JSON dump, one user ID interpolated into the wrong place, and the prefix mismatches — you pay full price every time and never see a single cache read.
+
+![A diagram of stable prefix versus dynamic suffix in a Claude API call](https://images.unsplash.com/photo-1518770660439-4636190af475?w=1200&q=80&auto=format&fit=crop)
+
+---
+
+## How the Pricing Actually Breaks Down
+
+This is the part that surprised me. The cache isn't free — *writing* to it costs more than a normal call. The economics only work if you read the same cached prefix back enough times to amortize that write.
+
+| Token type | Multiplier vs. base input price |
+|---|---|
+| Normal input token | 1.0× |
+| Cache read | **0.1×** (~90% discount) |
+| 5-minute cache write | **1.25×** |
+| 1-hour cache write | **2.0×** |
+
+Two implications:
+
+1. **Five-minute TTL pays off after one cache read.** Write at 1.25× plus one read at 0.1× equals 1.35× — already cheaper than two uncached calls at 2.0×.
+2. **One-hour TTL needs at least three calls within the hour to break even.** Write at 2.0× plus two reads at 0.2× equals 2.2× — cheaper than three uncached calls at 3.0×.
+
+The 1-hour TTL exists for bursty workflows where you don't want the cache to expire between runs. If your support triage fires every 30 seconds, the default 5-minute TTL is fine. If it runs in a daily batch, the 1-hour TTL prevents every batch from cold-starting the cache.
+
+---
+
+## What to Cache vs. What Not to Cache
+
+This is the single biggest decision and the one I see people get wrong. The rule:
+
+**Cache the stable prefix. Send the volatile part after it.**
+
+| Put in the cached block | Keep out of the cached block |
+|---|---|
+| System prompt (instructions, persona) | The user's actual question |
+| Tool definitions (sorted, deterministic) | Per-user IDs, session IDs, request IDs |
+| Knowledge base / RAG context | Today's date or `Date.now()` |
+| Few-shot examples | Per-customer variables (name, account, plan) |
+| Style guides, format specs | Anything that changes between runs |
+
+If you interpolate `current_date` into your system prompt header, the prefix changes every day and your cache invalidates daily for no reason. If you stuff a user's name into the system prompt to make Claude "personable," every user gets their own private cache and you lose the cross-customer reuse that makes caching valuable.
+
+The fix is structural: keep the system prompt frozen, and pass anything dynamic as a user-turn message *after* the cached prefix.
+
+---
+
+## The Minimum Cacheable Size (and Why Short Prompts Silently Don't Cache)
+
+Caching only kicks in once you cross a model-specific threshold. Below it, the API still accepts the `cache_control` marker, but `cache_creation_input_tokens` comes back zero — silently. No error.
+
+| Model | Minimum cacheable prefix |
+|---|---|
+| Claude Opus 4.7, Opus 4.6 | **4,096 tokens** |
+| Claude Sonnet 4.6 | **1,024 tokens** |
+| Claude Haiku 4.5 | **4,096 tokens** |
+
+This caught me out once. I'd built a Sonnet-4.5-era workflow, cached fine on a 2,500-token prefix, then upgraded to Opus 4.7 and watched my cache hit rate go to zero — because the same prefix was now under the higher minimum. If your prefix is short, either pad it with stable context (more retrieved docs, longer style guide) or skip caching entirely.
+
+You also get up to **four `cache_control` breakpoints per request**. In practice you almost never need more than one, but multiple breakpoints are useful if part of your prefix changes per session and another part changes per day — you cache each segment with its own TTL.
+
+---
+
+## A Worked Example: Customer-Support Triage Through n8n
+
+This is a representative shape from the workflows I run. A customer support inbox forwards each new message to an n8n webhook. The workflow loads a 30-page product knowledge base (~8,000 tokens), passes it to Claude Sonnet 4.6 along with five few-shot examples (~1,500 tokens) and a system prompt (~500 tokens), then routes the response based on Claude's classification.
+
+Total stable prefix: **~10,000 input tokens per run.**
+
+The workflow runs ~5,000 times a month.
+
+**Without caching**, on Sonnet 4.6 at $3 per million input tokens:
+
+- 5,000 runs × 10,000 tokens = 50M input tokens
+- 50M × $3/M = **$150/month** on input alone
+
+**With 5-minute caching**, assuming the support volume keeps the cache warm during business hours and the cache rebuilds maybe 12 times a day (cold starts after lulls):
+
+- ~360 cache writes/month × 10,000 tokens × 1.25× = ~$13.50
+- ~4,640 cache reads/month × 10,000 tokens × 0.1× = ~$13.92
+- **Total: ~$27/month on input** — about **82% lower** than uncached.
+
+That's the structural pattern. The exact numbers depend on traffic shape — a workflow that fires once an hour will see worse cache reuse than one that fires every 30 seconds. Output tokens cost the same either way; this is purely an input-side optimization.
+
+![A laptop running an automated workflow on a clean desk](https://images.unsplash.com/photo-1551434678-e076c223a692?w=1200&q=80&auto=format&fit=crop)
+
+---
+
+## How This Maps to n8n's HTTP Request Node
+
+n8n calls Anthropic via the HTTP Request node (or the dedicated Anthropic node, but the HTTP node gives you the most control). The request body is what matters.
+
+Three things have to be true on every execution:
+
+1. **The `tools` array, system prompt, and the cached message blocks are byte-identical** across runs. Sort tool definitions by name. Don't include timestamps. Don't interpolate workflow variables into the system prompt unless they're truly stable.
+2. **The dynamic content goes in a separate user-turn message *after* the cached prefix.** Use n8n's expression syntax (`{{ $json.user_message }}`) only in the dynamic part, never in the cached part.
+3. **A `cache_control: {"type": "ephemeral"}` block sits on the last stable content block.** That's the breakpoint. Everything before it gets cached.
+
+A minimal body shape looks like this (simplified):
+
+```json
+{
+  "model": "claude-sonnet-4-6",
+  "max_tokens": 1024,
+  "system": [
+    {
+      "type": "text",
+      "text": "You are a support triage agent. Knowledge base follows.\n\n<KB CONTENT — ~8K tokens, identical every run>",
+      "cache_control": { "type": "ephemeral" }
+    }
+  ],
+  "messages": [
+    { "role": "user", "content": "{{ $json.customer_message }}" }
+  ]
+}
+```
+
+The `cache_control` marker on the last system block caches both the system prompt *and* anything in the `tools` array (which renders before `system`). The user message is the only thing that changes per run.
+
+To verify caching is working, inspect the response — Anthropic returns `usage.cache_creation_input_tokens` (tokens written this call) and `usage.cache_read_input_tokens` (tokens served from cache this call). If reads are zero across repeated calls, you have a silent invalidator somewhere in the prefix. The most common culprits are non-deterministic JSON serialization, a date in the system prompt, or the workflow accidentally rebuilding the tool list each run.
+
+---
+
+## Warming the Cache on Workflow Start
+
+For workflows that don't fire frequently enough to keep the cache warm, the trick I use is to **fire one no-op call at the start of the workflow** with the full cached prefix and a trivial user message — something like `"Acknowledge with OK."`. That call pays the cache write cost. Every subsequent call in that execution path reads from the cache at the discounted rate.
+
+This is especially worth it for batch jobs that hit Claude many times in quick succession on the same prefix — nightly enrichment runs, bulk document extractions, cron-triggered reports.
+
+---
+
+## Common Mistakes I See
+
+1. **Putting `cache_control` on a prefix that's under the minimum.** No error, no cache. Always check `cache_creation_input_tokens` on the first call.
+2. **Interpolating dynamic data into the system prompt.** A `current_time` variable, a session ID, a feature-flag toggle — any of these in the system prompt invalidates the cache for every other request that doesn't share that exact value.
+3. **Reordering or rebuilding tools per request.** If your workflow constructs the `tools` array dynamically and the order isn't deterministic, you'll see zero cache hits. Sort by tool name and freeze it.
+4. **Forgetting to update `cache_control` placement when you grow the conversation.** In a multi-turn agent, you want the breakpoint on the *last* stable block — usually the most recent assistant turn. Leave it on an old block and you stop caching anything new.
+5. **Caching a prefix that's only used once.** Caching costs more than a normal call on the first hit. If you're calling Claude once and never again with that prefix, you've made it 25% more expensive, not cheaper.
+6. **Switching models mid-conversation.** Caches are model-scoped — moving from Sonnet to Opus invalidates everything. Pick a model and stay on it for the workflow.
+
+---
+
+## Latency, Not Just Cost
+
+The cost story is the headline, but caching also makes warm calls **noticeably faster**. The tokens in the cached prefix don't have to be re-processed by the model on every call. For a workflow with a 10K-token prefix and a 200-token user message, the time-to-first-token on warm hits drops by roughly the ratio of prefix to total input — sometimes by half a second or more.
+
+For a customer-facing automation (a chatbot, a real-time triage system, a voice agent), that latency improvement is worth real money on its own.
+
+---
+
+## How Smart AI Workspace Approaches This
+
+When I take over a Claude-driven n8n workflow that's running too expensive, the first audit is always the same: pull the request bodies, check the prefix size, look at how often the same prefix repeats, and compare that against `cache_read_input_tokens` in the response usage data. The fixes are almost always structural — moving a date out of the system prompt, sorting the tool array, separating the dynamic user message from the static context.
+
+This pattern compounds with the architecture choices I [wrote about in the n8n vs Zapier vs Make pillar](/blog/n8n-vs-zapier-vs-make-2026) — the same workflow that costs you per-task on Zapier costs you per-execution on n8n, and now also costs you 10% of the input price on the cached portion. The cost gap between "Zapier with no caching" and "n8n with prompt caching" on a high-volume, AI-heavy workflow is the difference between an expensive line item and a rounding error.
+
+If you're running Claude through automation — n8n, Make, custom code, anything — and your monthly bill keeps drifting up, prompt caching is almost always the first lever to pull. Anthropic's [official prompt caching docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) cover the API surface; the structural decisions above are what determine whether it actually works in production.
+
+---
+
+## Cut Your Claude Bill For Me Instead
+
+If you've read this far and the answer you actually want is *"just audit my Claude workflows, fix the caching, and hand me back a 70%-lower invoice,"* that's exactly what I do. I'll trace the request bodies, find the silent invalidators, restructure the prompt prefix, and ship the change on infrastructure you own.
+
+[Talk to Smart AI Workspace about your Claude costs →](/contact)
+
+---
+
+*Sources: [Anthropic Prompt Caching Docs](https://docs.anthropic.com/en/docs/build-with-claude/prompt-caching) · [Anthropic API Pricing 2026](https://platform.claude.com/docs/en/about-claude/pricing) · [Anthropic API Pricing — Finout 2026](https://www.finout.io/blog/anthropic-api-pricing) · [Claude Prompt Caching Cost Study (Du'An Lightfoot)](https://medium.com/@labeveryday/prompt-caching-is-a-must-how-i-went-from-spending-720-to-72-monthly-on-api-costs-3086f3635d63) · [Claude Prompt Caching TTL Analysis 2026](https://dev.to/whoffagents/claude-prompt-caching-in-2026-the-5-minute-ttl-change-thats-costing-you-money-4363)*
